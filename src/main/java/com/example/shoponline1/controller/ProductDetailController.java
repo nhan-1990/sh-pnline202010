@@ -25,6 +25,7 @@ import java.util.stream.Collectors;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -34,19 +35,19 @@ import org.springframework.web.bind.annotation.RequestParam;
 public class ProductDetailController {
 
     @Autowired
-    private IProductService productService;
+    private IProductService iProductService;
     
     @Autowired
     private IProductDetailDao iProductDetailDao;
 
     @Autowired
-    private IProductDetailService productDetailService;
+    private IProductDetailService iProductDetailService;
 
     @Autowired
-    private IReviewDtoService reviewDto;
+    private IReviewDtoService iReviewDtoService;
 
     @Autowired
-    private IReviewDao reviewDao;
+    private IReviewDao iReviewDao;
 
     public static <T> Predicate<T> distinctByKey(Function<? super T, Object> keyExtractor) {
         Map<Object, Boolean> seen = new ConcurrentHashMap<>();
@@ -63,13 +64,13 @@ public class ProductDetailController {
             model.addAttribute("user", user);
         }
         
-        ProductDto productDto = productDetailService.findProductDtoById(id);
+        ProductDto productDto = iProductDetailService.findProductDtoById(id);
         model.addAttribute("productDto", productDto);
         
-        List<ReviewDto> review = reviewDto.findAllReviewDto(productDto.getProductId());
+        List<ReviewDto> review = iReviewDtoService.findAllReviewDto(productDto.getProductId());
         model.addAttribute("review", review);
 
-        List<ProductDto> listProductDto = productDetailService.findListProductById(productDto.getProductId());
+        List<ProductDto> listProductDto = iProductDetailService.findListProductById(productDto.getProductId());
         model.addAttribute("listProductDto", listProductDto);
 
         List<ProductDto> pr = (listProductDto).stream().filter(distinctByKey(p -> p.getRom()))
@@ -89,6 +90,14 @@ public class ProductDetailController {
         ProductDetail prDt = iProductDetailDao.findById(id).get();
         model.addAttribute("prDt", prDt);
         
+        Page<ProductDto> relatedProduct = iProductDetailService.findByProductName(1, 6, "productDetailId: DESC", productDto.getProductName(), productDto.getRom());
+        List<ProductDto> relative = relatedProduct.toList();
+        List<ProductDto> relative1 = new ArrayList<>();
+        for (int i=1;i<relative.size();i++) {
+            relative1.add(0, relative.get(i));
+        }
+        model.addAttribute("relatedProduct", relative1);
+        
         CartInfo myCart = Utils.getCartInSession(session);
         model.addAttribute("cartForm", myCart);
         
@@ -104,13 +113,13 @@ public class ProductDetailController {
         if (session.getAttribute("user") == null) {
             return "redirect:/login";
         } else {
-            Product prd = productService.findById(prdId);
+            Product prd = iProductService.findById(prdId);
             User user = (User) session.getAttribute("user");
             Review rv = new Review();
             rv.setContent(content);
             rv.setProduct(prd);
             rv.setUser(user);
-            reviewDao.save(rv);
+            iReviewDao.save(rv);
 
         }
         return "redirect:/productdetail?id=" + prdDetailId;

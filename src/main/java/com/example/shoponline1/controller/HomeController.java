@@ -43,7 +43,8 @@ public class HomeController {
         Page<ProductDto> productPage = iProductDetailService.findPaginated(page, size, sort);
         model.addAttribute("productPage", productPage);
         
-        Page<ProductDto> bestSold = iProductDetailService.bestSold(page, 4);
+        //Page<ProductDto> bestSold = iProductDetailService.bestSold(page, 4);
+        Page<ProductDto> bestSold = iProductDetailService.bestSold(page, 8);
         model.addAttribute("bestSold", bestSold);
 
         int totalPage = productPage.getTotalPages();

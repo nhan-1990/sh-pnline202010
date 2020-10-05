@@ -33,15 +33,32 @@
               href="../../../static/business/css/ion.rangeSlider.skinFlat.css" type="text/css"/>
         <link rel="stylesheet" th:href="@{business/css/main.css}"
               href="../../../static/business/css/main.css" type="text/css"/>
+        <link rel="stylesheet" type="text/css" th:href="@{business/styles/shop_styles.css}"
+              href="../../../static/business/styles/shop_styles.css"/>
+        <link rel="stylesheet" type="text/css" th:href="@{business/styles/shop_responsive.css}"
+              href="../../../static/business/styles/shop_responsive.css"/>
+        <link rel="stylesheet" type="text/css" th:href="@{business/styles/main_styles.css}"
+              href="../../../static/business/styles/main_styles.css"/>
 
         <style type="text/css">
 
-            .title h2{
-                display: inline;  
-                color: #333;
-                line-height: 40px;
-                margin-left: 10px;
-                font-family: 'Helvetica Neue', sans-serif;
+            ._2iNrDS {
+                display: inline;
+                margin-right: 50px;
+            }
+
+
+            a {
+                text-decoration: none;
+                display: block;
+                color: black;
+            }
+
+            h3 {
+                display: inline;
+                text-decoration: none;
+                color: #222;
+                font: 16px/18px Helvetica,Arial,'DejaVu Sans','Liberation Sans',Freesans,sans-serif;
             }
 
             .area_price {
@@ -91,17 +108,78 @@
                 /* margin: 0 0 5px 5px; */
                 height: 18px;
             }
+
+            .btnbuy{
+                text-align: center;
+
+            }
+
+            .btn_buyins{
+
+                text-align: center;
+                overflow: hidden;
+                padding: 5px 0;
+                cursor: pointer;
+                font-size: 12px;
+                color: #fff;
+                text-transform: uppercase;
+                border: 1px solid #288ad6;
+                border-radius: 3px;
+                background: #288ad6;
+                transition: all .3s ease;
+
+            }
+
+            .card-body{
+                padding: 0px;
+                padding-left: 20px;
+            }
+
+            .card-img-top{
+                padding-top: 10px;
+            }
+
+            .config h5{
+                font-family: 'Helvetica Neue', sans-serif;
+                vertical-align: middle;
+                color: #919090;
+            }
+
+            .default2 p{
+                display: inline-block;
+            }
+
+            .discount{
+                background-image: linear-gradient(-90deg,#ec1f1f 0%,#ff9c00 100%);
+                border-radius: 10px;
+                padding: 1px 10px 2px 0;
+                top: 224px !important;
+                display: inline-block;
+                position: absolute;
+                top: 187px;
+                left: 10px;
+                font-size: 11px;
+                color: #fff;
+                font-weight: 600;
+                padding: 0 5px;
+                height: 18px;
+            }
+
+            .div{
+                display: inline;
+            }
+
+            .flex .items-center{
+                display: inline;
+            }
+
             .m_default {
                 display: block;
             }
             .m_default p{
                 display: inline-block;
-            }
+            }           
 
-            .default2 p{
-                display: inline-block;
-
-            }
             .memory {
                 float: left;
                 width: 100%;
@@ -133,11 +211,6 @@
                 margin-bottom: 15px;
                 cursor: pointer;
             }
-            a {
-                text-decoration: none;
-                display: block;
-                color: black;
-            }
 
             .memory .item.active i.iconmobile-opt {
                 background: url(/Content/desktop/images/V4/game/check.png);
@@ -157,37 +230,6 @@
                 display: block;
                 margin-top: 5px;
                 color: #e10c00;
-            }
-
-            .config h5{
-                font-family: 'Helvetica Neue', sans-serif;
-                vertical-align: middle;
-                color: #919090;
-            }
-            .btnbuy{
-                text-align: center;
-
-
-
-            }
-            .btn_buyins{
-
-                text-align: center;
-                overflow: hidden;
-                padding: 5px 0;
-                cursor: pointer;
-                font-size: 12px;
-                color: #fff;
-                text-transform: uppercase;
-                border: 1px solid #288ad6;
-                border-radius: 3px;
-                background: #288ad6;
-                transition: all .3s ease;
-
-            }
-
-            .div{
-                display: inline;
             }
 
             .product-variation {
@@ -223,12 +265,32 @@
                 justify-content: center;
 
             }
-            ._2iNrDS {
-                display: inline;
-                margin-right: 50px;
+
+            .price{
+                padding-left: 20px;
             }
-            .flex .items-center{
-                display: inline;
+            .price strong{
+                display: inline-block;
+                vertical-align: middle;
+                color: #e10c00;
+                margin-right: 5px;
+
+
+            }
+            .price span{
+                display: inline-block;
+                vertical-align: middle;
+                text-decoration: line-through;
+
+                color: #222;
+            }
+
+            .title h2{
+                display: inline;  
+                color: #333;
+                line-height: 40px;
+                margin-left: 10px;
+                font-family: 'Helvetica Neue', sans-serif;
             }
         </style>
 
@@ -465,6 +527,49 @@
                     </div>
                 </div>
             </section>
+
+            <div class="shop">
+                <div class="container">
+                    <div class="row">
+                        <div class="shop_content">
+                            <div class="tabs clearfix tabs-right">
+                                <h2>Relative Smartphone</h2>
+                            </div>
+                            <div class="row row-cols-md-5 align-content-between">
+                                <div th:each="product : ${relatedProduct}">  
+                                    <div>
+                                        <a th:href="@{/productdetail(id=${product.productDetailId})}" class="a_href">    
+                                            <div class="card h-100">
+                                                <img th:src ="@{|/productImage?id=${product.productDetailId}|}"
+                                                     class="card-img-top" alt="..."/>
+
+                                                <div class="card-body">
+                                                    <h3 th:text="${product.productName}"></h3>
+                                                    <h3 th:text="${product.rom}"></h3>
+                                                </div>
+                                                <div class="price">
+                                                    <strong th:text="${#numbers.formatDecimal(product.priceAfter, 0, 'COMMA', 0, 'POINT')}"></strong><strong>đ</strong>
+                                                    <span th:text="${#numbers.formatDecimal(product.priceBefore, 0, 'COMMA', 0, 'POINT')}"></span><span>đ</span>
+                                                </div>
+                                                <div class="discount"> 
+                                                    <label>Sold </label>
+                                                    <label th:text="${product.sold}"></label>
+                                                </div>
+                                                <div class="card-footer">
+                                                    <div class="btnbuy">
+                                                        <a th:href="@{|/buyProduct?code=${product.productDetailId}&amp;quantity=1|}" class="btn_buyins">Add to Cart</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
 
 
             <footer class="footer" th:replace = "~{business/fragment/fragment ::footer}">

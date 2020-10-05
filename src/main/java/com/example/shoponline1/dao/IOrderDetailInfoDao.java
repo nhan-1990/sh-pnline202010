@@ -17,7 +17,9 @@ import org.springframework.data.jpa.repository.Query;
  */
 public interface IOrderDetailInfoDao extends JpaRepository<OrderDetail, Integer>{
     
-    @Query("select new com.example.shoponline1.dto.OrderDetailInfo(pd.product.productName, od.price, od.quantity, od.discountValue) "
-            + "from OrderDetail od join od.order o join od.productDetail pd where o.orderId = ?1 ")
+    @Query("select new com.example.shoponline1.dto.OrderDetailInfo(pd.product.productName, "
+            + "pd.configurator.rom, od.price, od.quantity, od.discountValue) "
+            + "from OrderDetail od join od.order o join od.productDetail pd "
+            + "where o.orderId = ?1 ")
     List<OrderDetailInfo> getOrderDetailInfo(int orderid);
 }

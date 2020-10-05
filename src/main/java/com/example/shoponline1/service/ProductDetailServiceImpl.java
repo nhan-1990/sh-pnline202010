@@ -76,28 +76,16 @@ public class ProductDetailServiceImpl implements IProductDetailService {
 
     @Override
     public ProductDto findProductDtoById(int id) {
-        List<ProductDetail> prdDetails = iProductDetailDao.findAll();
-        ProductDto productDto = new ProductDto();
-        for (ProductDetail prdDetail : prdDetails) {
-            if (prdDetail.getProductDetailId() == id) {
-                this.getProductDto(productDto, prdDetail);
-            }
-        }
+        
+        ProductDto productDto = iProductDtoDao.findById(id).get(id);
+        
         return productDto;
     }
 
     @Override
     public List<ProductDto> findListProductById(int id) {
-        List<ProductDetail> prdDetails = iProductDetailDao.findAll();
-        List<ProductDto> prdDto = new ArrayList<ProductDto>();
-        for (ProductDetail prdDetail : prdDetails) {
-            if (prdDetail.getProduct().getProductId() == id) {
-                ProductDto productDto = new ProductDto();
-                this.getProductDto(productDto, prdDetail);
-                prdDto.add(productDto);
-            }
-
-        }
+        
+        List<ProductDto> prdDto = iProductDtoDao.findById(id);
         return prdDto;
     }
 
@@ -115,6 +103,7 @@ public class ProductDetailServiceImpl implements IProductDetailService {
         
         Sort sortable = Sort.by("sold").descending();
         Page<ProductDto> productPage = iProductDtoDao.findAllDtoPage(PageRequest.of(page - 1, size, sortable));
+        //Page<ProductDto> productPage = iProductDtoDao.bestSell(PageRequest.of(page - 1, size, sortable));
         
         return productPage;
     }

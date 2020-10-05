@@ -243,7 +243,7 @@
                                                             <span th:text="${#numbers.formatDecimal(product.priceBefore, 0, 'COMMA', 0, 'POINT')}"></span><span>đ</span>
                                                         </div>
                                                         <div class="discount"> 
-                                                            <label>giảm</label>
+                                                            <label>Sale off</label>
                                                             <label  th:text="${#numbers.formatDecimal(product.reducedPrice, 0, 'COMMA', 0, 'POINT')}"></label>
                                                             <label>đ</label>
                                                         </div>
@@ -294,54 +294,55 @@
                                         </div>
                                     </div>
                                 </div>
-                                <nav aria-label="Pagination" th:if="${productPage.totalPages gt 0}" class="row"
-                                     style="float: right; padding-top: 23px; padding-right: 15px;">
-                                    <ul class="pagination justify-content-center font-weight-medium">
-                                        <li class="page-item" th:classappend="${productPage.number eq 0} ? 'disabled'">
-                                            <a th:href="@{/filter(brand1=${brand1}, brand2= ${brand2}, minPrice=${minPrice}, maxPrice=${maxPrice}, sort=${productPage.getSort()}, page=${productPage.number lt 2 ? 1 : productPage.number})}"
-                                               class="page-link svg-icon" aria-label="Previous">Back</a>     
-                                        </li>
-                                        <li class="page-item" th:if="${productPage.number - 1 > 1}">
-                                            <a class="page-link" th:href="@{/filter(brand1=${brand1}, brand2= ${brand2}, minPrice=${minPrice}, maxPrice=${maxPrice}, sort=${productPage.getSort()}, page=1)}" 
-                                               th:text="1" th:title="${'Page '+ 1}" rel="tooltip"></a>
-                                        </li>
-                                        <li class="page-item disabled" th:if="${productPage.number - 2 > 1}">
-                                            <a class="page-link svg-icon" href="#">
-                                                <span data-feather="more-horizontal" width="20" height="20"><-</span>
-                                            </a>
-                                        </li>
-                                        <li class="page-item" th:classappend="${i eq productPage.number + 1} ? 'active'"
-                                            th:each="i : ${#numbers.sequence(productPage.number - 2 < 1 ? 1 : productPage.number - 1, productPage.totalPages > 3 + productPage.number ? productPage.number + 3 : productPage.totalPages, 1)}">
-                                            <a class="page-link" th:href="@{/filter(brand1=${brand1}, brand2= ${brand2}, minPrice=${minPrice}, maxPrice=${maxPrice}, sort=${productPage.getSort()}, page=${i})}" 
-                                               th:text="${i}" th:title="${'Page '+ i}" rel="tooltip"></a>
-                                        </li>                                        
-                                        <li class="page-item disabled" th:if="${productPage.number + 4 < productPage.totalPages}">
-                                            <a class="page-link svg-icon" href="#">
-                                                <span data-feather="more-horizontal" width="20" height="20">-></span>
-                                            </a>
-                                        </li>
-                                        <li class="page-item" th:if="${productPage.number + 3 < productPage.totalPages}">
-                                            <a class="page-link" th:href="@{/filter(brand1=${brand1}, brand2= ${brand2}, minPrice=${minPrice}, maxPrice=${maxPrice}, sort=${productPage.getSort()}, page=${productPage.totalPages})}" 
-                                               th:text="${productPage.totalPages}" th:title="${'Page '+ productPage.totalPages}" rel="tooltip"></a>
-                                        </li>
-                                        <li class="page-item" th:classappend="${productPage.number + 1 eq productPage.totalPages} ? 'disabled'">
-                                            <a class="page-link svg-icon" th:href="@{/filter(brand1=${brand1}, brand2= ${brand2}, minPrice=${minPrice}, maxPrice=${maxPrice}, sort=${productPage.getSort()}, page=${productPage.number + 2})}"
-                                               aria-label="Next" title="Next Page" rel="tooltip">Next</a>
-                                        </li>
-                                    </ul>
-                                </nav>
                             </div>
+                            <nav aria-label="Pagination" th:if="${productPage.totalPages gt 0}" class="row"
+                                 style="float: right; padding-top: 23px; padding-right: 15px;">
+                                <ul class="pagination justify-content-center font-weight-medium">
+                                    <li class="page-item" th:classappend="${productPage.number eq 0} ? 'disabled'">
+                                        <a th:href="@{/filter(brand1=${brand1}, brand2= ${brand2}, minPrice=${minPrice}, maxPrice=${maxPrice}, sort=${productPage.getSort()}, page=${productPage.number lt 2 ? 1 : productPage.number})}"
+                                           class="page-link svg-icon" aria-label="Previous">Back</a>     
+                                    </li>
+                                    <li class="page-item" th:if="${productPage.number - 1 > 1}">
+                                        <a class="page-link" th:href="@{/filter(brand1=${brand1}, brand2= ${brand2}, minPrice=${minPrice}, maxPrice=${maxPrice}, sort=${productPage.getSort()}, page=1)}" 
+                                           th:text="1" th:title="${'Page '+ 1}" rel="tooltip"></a>
+                                    </li>
+                                    <li class="page-item disabled" th:if="${productPage.number - 2 > 1}">
+                                        <a class="page-link svg-icon" href="#">
+                                            <span data-feather="more-horizontal" width="20" height="20"><-</span>
+                                        </a>
+                                    </li>
+                                    <li class="page-item" th:classappend="${i eq productPage.number + 1} ? 'active'"
+                                        th:each="i : ${#numbers.sequence(productPage.number - 2 < 1 ? 1 : productPage.number - 1, productPage.totalPages > 3 + productPage.number ? productPage.number + 3 : productPage.totalPages, 1)}">
+                                        <a class="page-link" th:href="@{/filter(brand1=${brand1}, brand2= ${brand2}, minPrice=${minPrice}, maxPrice=${maxPrice}, sort=${productPage.getSort()}, page=${i})}" 
+                                           th:text="${i}" th:title="${'Page '+ i}" rel="tooltip"></a>
+                                    </li>                                        
+                                    <li class="page-item disabled" th:if="${productPage.number + 4 < productPage.totalPages}">
+                                        <a class="page-link svg-icon" href="#">
+                                            <span data-feather="more-horizontal" width="20" height="20">-></span>
+                                        </a>
+                                    </li>
+                                    <li class="page-item" th:if="${productPage.number + 3 < productPage.totalPages}">
+                                        <a class="page-link" th:href="@{/filter(brand1=${brand1}, brand2= ${brand2}, minPrice=${minPrice}, maxPrice=${maxPrice}, sort=${productPage.getSort()}, page=${productPage.totalPages})}" 
+                                           th:text="${productPage.totalPages}" th:title="${'Page '+ productPage.totalPages}" rel="tooltip"></a>
+                                    </li>
+                                    <li class="page-item" th:classappend="${productPage.number + 1 eq productPage.totalPages} ? 'disabled'">
+                                        <a class="page-link svg-icon" th:href="@{/filter(brand1=${brand1}, brand2= ${brand2}, minPrice=${minPrice}, maxPrice=${maxPrice}, sort=${productPage.getSort()}, page=${productPage.number + 2})}"
+                                           aria-label="Next" title="Next Page" rel="tooltip">Next</a>
+                                    </li>
+                                </ul>
+                            </nav>
                         </div>
                     </div>
                 </div>
             </div>
-            <footer class="footer"  th:replace = "~{business/fragment/fragment ::footer}">
-            </footer>
+        </div>
+        <footer class="footer"  th:replace = "~{business/fragment/fragment ::footer}">
+        </footer>
 
-            <!-- Copyright -->
+        <!-- Copyright -->
 
-            <div class="copyright" th:replace = "~{business/fragment/fragment ::copyright}">
-            </div>
+        <div class="copyright" th:replace = "~{business/fragment/fragment ::copyright}">
+        </div>
         </div>
 
         <script src="js/jquery-3.3.1.min.js"></script>

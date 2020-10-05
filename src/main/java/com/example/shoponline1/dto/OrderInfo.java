@@ -17,6 +17,8 @@ public class OrderInfo {
     private Date orderTime;
 
     private String productName;
+    
+    private String rom;
 
     private int quantity;
 
@@ -25,13 +27,13 @@ public class OrderInfo {
     public OrderInfo() {
     }
 
-    public OrderInfo(int orderId, Date orderTime, String productName, int quantity, double totals) {
+    public OrderInfo(int orderId, Date orderTime, String productName, String rom, int quantity, double totals) {
         this.orderId = orderId;
         this.orderTime = orderTime;
         this.productName = productName;
+        this.rom = rom;
         this.quantity = quantity;
         this.totals = totals;
-
     }
 
     public int getOrderId() {
@@ -66,6 +68,14 @@ public class OrderInfo {
         this.productName = productName;
     }
 
+    public String getRom() {
+        return rom;
+    }
+
+    public void setRom(String rom) {
+        this.rom = rom;
+    }
+        
     public int getQuantity() {
         return quantity;
     }
