@@ -1,0 +1,258 @@
+﻿<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+
+    <head>
+        <meta charset="utf-8"/>
+        <title>onetech</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <meta content="Responsive bootstrap 4 admin template" name="description"/>
+        <meta content="Coderthemes" name="author"/>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+        <!-- App favicon -->
+        <link rel="shortcut icon" href="assets\images\favicon.ico"/>
+
+        <!-- Responsive Table css -->
+        <link href="/admin/assets\libs\rwd-table\rwd-table.min.css" rel="stylesheet"
+              type="text/css"/>
+
+        <!-- App css -->
+        <link href="/admin/assets\css\bootstrap.min.css" rel="stylesheet"
+              type="text/css" id="bootstrap-stylesheet"/>
+        <link href="/admin/assets\css\icons.min.css" rel="stylesheet" type="text/css"/>
+        <link href="/admin/assets\css\app.min.css" rel="stylesheet" type="text/css"
+              id="app-stylesheet"/>
+
+
+    </head>
+
+    <body>
+
+        <!-- Begin page -->
+        <div id="wrapper">
+
+
+            <!-- Topbar Start -->
+            <div class="navbar-custom"
+                 th:replace="~{system/fragment/index ::header}"></div>
+            <!-- end Topbar -->
+            <!-- ========== Left Sidebar Start ========== -->
+
+
+            <div class="left-side-menu"
+                 th:replace="~{system/fragment/index ::menu}">
+
+
+                <!-- Sidebar -left -->
+
+            </div>
+            <!-- Left Sidebar End -->
+
+            <!-- ============================================================== -->
+            <!-- Start Page Content here -->
+            <!-- ============================================================== -->
+
+            <div class="content-page">
+                <div class="content">
+
+                    <!-- Start Content-->
+                    <div class="container-fluid">
+
+                        <!-- start page title -->
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="page-title-box">
+                                    <h4 class="page-title">List order</h4>
+                                    <div class="page-title-right">
+                                        <ol class="breadcrumb p-0 m-0">
+                                            <li class="breadcrumb-item"><a href="#">Onetech</a></li>
+                                            <li class="breadcrumb-item active">ListProuct</li>
+                                        </ol>
+                                    </div>
+                                    <div class="clearfix"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- end page title -->
+
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="card-box">
+
+                                    <div style="padding: 10px 10px 30px 10px;">
+                                        <div style=""><h4>filter:</h2></div>
+                                        <form th:action="@{/admin/searchs}" method="post">
+
+                                            <p style="display: inline;">Status:</p>
+                                            <select id="inputState" class="form-control" name="status"
+                                                    style="width: 125px; display: inline;">
+
+                                                <option id="target">confirmed</option>
+                                                <option>shipping</option>
+                                                <option>delivered</option>
+                                            </select>
+                                            <p style="display: inline;">Begin:</p>
+                                            <input type="date" class="form-control" name="begin" pattern="yyyy-MM-dd" required
+                                                   style="display: inline; width: 200px;"/>
+
+                                            <p style="display: inline;">End:</p>
+                                            <input type="date" class="form-control" name="end" pattern="yyyy-MM-dd" required
+                                                   style="display: inline; width: 200px;"/>	
+
+
+                                            <button type="submit" class="btn btn-primary" style="margin-bottom: 4px;">
+                                                Search</button>
+
+                                        </form>
+                                    </div>
+                                    <table id="tech-companies-1" class="table table-striped mb-0">
+                                        <thead>
+                                            <tr>
+                                                <th >id</th>
+
+                                                <th data-priority="2">Customer</th>
+
+                                                <th data-priority="3">Total</th>
+
+                                                <th data-priority="3">Creation time</th>
+
+                                                <th data-priority="4">Status</th>
+                                                <th data-priority="4">Action</th>
+
+                                            </tr>
+                                        </thead>
+                                        <th:block th:each="order, state : ${order}">
+                                            <tbody>
+
+
+                                                <tr th:class="${state.odd}? 'hover_tr odd':'hover_tr even'">
+                                                    <th th:text="${order.orderId}"></th>	
+
+                                                    <th th:text="${order.user.userName}"></th>
+
+                                                    <th th:text="${#numbers.formatDecimal(order.total, 0, 'COMMA', 0, 'POINT')}"></th>
+
+                                                    <th th:text="${order.orderTime}"></th>
+
+                                                    <th>
+                                                        <a th:href="@{/admin/statusorder(id=${order.orderId})}">
+                                                            <button type="button" class="form-control">
+                                                                <i th:text="${order.status}"></i>
+                                                            </button>
+                                                        </a>
+                                                    </th>
+
+                                                    <th>
+                                                        <a th:href="@{/admin/orderdetail(id=${order.orderId})}">
+                                                            <button type="button" class="btn btn-secondary waves-effect"> 
+                                                                <span>View detail</span> 
+                                                            </button>
+                                                        </a>
+
+                                                        <a th:href="@{/admin/deleteorder(id=${order.orderId})}">
+                                                            <button type="button" class="btn btn-icon waves-effect waves-light btn-danger">
+                                                                <i class="fa fa-trash"></i>
+                                                            </button>
+                                                        </a>
+                                                    </th>
+
+                                                </tr>
+
+                                                <!-- Repeat -->
+
+                                            </tbody>
+                                        </th:block>
+                                    </table>
+                                    <nav aria-label="Pagination" th:if="${order.totalPages gt 0}" style="float: right; padding-top: 23px; padding-right: 15px;">
+                                        <ul class="pagination justify-content-center font-weight-medium">
+                                            <li class="page-item" th:classappend="${order.number eq 0} ? 'disabled'">
+                                                <a class="page-link svg-icon"
+                                                   th:href="@{/admin/order?page={id}(id=${order.number lt 2 ? 1 : order.number})}"
+                                                   aria-label="Previous">
+                                                    back
+                                                </a>
+                                            </li>
+                                            <li class="page-item" th:classappend="${i eq order.number + 1} ? 'active'"
+                                                th:each="i : ${#numbers.sequence( order.number + 1, order.totalPages > 10 + order.number ? order.number + 10 : order.totalPages, 1)}">
+                                                <a class="page-link" th:href="@{/admin/order?page={id}(id=${i})}" th:text="${i}"
+                                                   th:title="${'Page '+ i}"
+                                                   rel="tooltip"></a>
+                                            </li>
+                                            <li class="page-item disabled" th:if="${order.number + 10 < order.totalPages}">
+                                                <a class="page-link svg-icon" href="#">
+                                                    <span data-feather="more-horizontal" width="20" height="20"></span>
+                                                </a>
+                                            </li>
+                                            <li class="page-item" th:classappend="${order.number + 1 eq order.totalPages} ? 'disabled'">
+                                                <a class="page-link svg-icon" th:href="@{/admin/order?page={id}(id=${order.number + 2})}"
+                                                   aria-label="Next"
+                                                   title="Next Page" rel="tooltip">
+                                                    next
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </nav>
+
+
+
+                                </div>
+
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <!-- end row -->
+
+            </div>
+            <!-- end container-fluid -->
+
+        </div>
+        <!-- end content -->
+
+
+
+
+        <!-- Footer Start -->
+        <footer class="footer" th:replace="~{system/fragment/index ::footer}">
+
+        </footer>
+        <!-- end Footer -->
+
+        </div>
+
+
+
+
+
+
+        <!-- Vendor js -->
+        <script src="/admin/assets\js\vendor.min.js"></script>
+
+        <!-- Responsive Table js -->
+        <script src="/admin/assets\libs\rwd-table\rwd-table.min.js"></script>
+
+        <!-- Init js -->
+        <script src="/admin/assets\js\pages\responsive-table.init.js"></script>
+
+        <!-- App js -->
+        <script src="/admin/assets\js\app.min.js"></script>
+
+    </body>
+
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

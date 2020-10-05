@@ -1,0 +1,136 @@
+﻿<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+
+    <head>
+        <meta charset="utf-8"/>
+        <title>onetech</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <meta content="Responsive bootstrap 4 admin template" name="description"/>
+        <meta content="Coderthemes" name="author"/>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+        <!-- App favicon -->
+        <link rel="shortcut icon" href="/admin/assets\images\favicon.ico"/>
+
+        <!-- Responsive Table css -->
+        <link href="/admin/assets\libs\rwd-table\rwd-table.min.css"
+              rel="stylesheet" type="text/css"/>
+
+        <!-- App css -->
+        <link href="/admin/assets\css\bootstrap.min.css" rel="stylesheet"
+              type="text/css" id="bootstrap-stylesheet"/>
+        <link href="/admin/assets\css\icons.min.css" rel="stylesheet"
+              type="text/css"/>
+        <link href="/admin/assets\css\app.min.css" rel="stylesheet"
+              type="text/css" id="app-stylesheet"/>
+
+        <style type="text/css">
+            .table td, .table th {
+                padding: .75rem;
+                vertical-align: text-bottom;
+                border-top: 1px solid #eaeaea;
+            }
+        </style>
+    </head>
+
+    <body>
+        <div id="wrapper">
+            <div class="navbar-custom"
+                 th:replace="~{system/fragment/index ::header}"></div>
+            <div class="left-side-menu"
+                 th:replace="~{system/fragment/index ::menu}"></div>
+            <div class="content-page">
+                <div class="content">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="page-title-box">
+                                    <h4 class="page-title" th:text="${prd.productName}">Detail</h4>
+                                    <div class="page-title-right">
+                                        <ol class="breadcrumb p-0 m-0">
+                                            <li class="breadcrumb-item"><a href="/admin/product">Product</a></li>                                            
+                                            <li class="breadcrumb-item active">Product Detail</li>
+                                        </ol>
+                                    </div>
+                                    <div class="clearfix"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="card-box">
+                                    <div style="padding: 0px 0px 20px 0px;">
+                                        <a th:href="@{/admin/addproductDt(id=${prd.productId})}">
+                                            <button class="btn btn-success waves-effect width-md waves-light">Add
+                                                Product Detail</button> 
+                                        </a>
+                                    </div>
+                                    <table id="tech-companies-1" class="table table-striped mb-0">
+                                        <thead style="width: 100%;">
+                                            <tr>
+                                                <th data-priority="1">id</th>
+                                                <th data-priority="2">Price</th>
+                                                <th data-priority="3">Amout</th>
+                                                <th data-priority="1">Rom</th>
+                                                <th data-priority="1">Color</th>
+                                                <th data-priority="2">image</th>
+                                                <th data-priority="4">Actions</th>
+                                            </tr>
+                                        </thead>
+                                        <th:block th:each="product : ${prdDt}">
+                                            <tbody>
+                                                <tr>
+                                                    <th th:text="${product.productDetailId}"></th>
+                                                    <th th:text="${#numbers.formatDecimal(product.price, 0, 'COMMA', 0, 'POINT')}"><span>đ</span></th>
+                                                    <td th:text="${product.amount}"></td>
+                                                    <td th:text="${product.configurator.rom}"></td>
+                                                    <td th:text="${product.color.colorName}"></td>
+                                                    <td>                                                         
+                                                        <img th:src ="@{|/admin/productImage?id=${product.productDetailId}|}"
+                                                             style="width: 70px;"/>
+                                                        
+                                                    </td>
+                                                    <td>
+                                                        <a th:href="@{/admin/editdt(id=${product.productDetailId})}">
+                                                            <button type="button"
+                                                                    class="btn btn-icon waves-effect waves-light btn-warning">
+                                                                <i class="fa fa-wrench"></i>
+                                                            </button> 
+                                                        </a>
+                                                        <a th:href="@{/admin/deletedt(id=${product.productDetailId})}">
+                                                            <button type="button"
+                                                                    class="btn btn-icon waves-effect waves-light btn-danger">
+                                                                <i class="fa fa-trash"></i>
+                                                            </button>
+                                                        </a>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </th:block>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <footer class="footer" th:replace="~{system/fragment/index ::footer}">
+
+        </footer>
+        <!-- end Footer -->
+
+
+
+        <script src="/admin/assets\js\vendor.min.js"></script>
+
+        <script src="/admin/assets\libs\rwd-table\rwd-table.min.js"></script>
+
+        <script src="/admin/assets\js\pages\responsive-table.init.js"></script>
+
+        <script src="/admin/assets\js\app.min.js"></script>
+
+    </body>
+
+</html>

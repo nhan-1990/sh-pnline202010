@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title>Single Product</title>
+        <meta charset="utf-8"/>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+        <meta name="description" content="OneTech shop project"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1"/>
+        <link rel="stylesheet" type="text/css" th:href="@{business/styles/bootstrap4/bootstrap.min.css}"
+              href="../../../static/business/styles/bootstrap4/bootstrap.min.css"/>
+        <link rel="stylesheet" type="text/css" th:href="@{business/styles/shop_styles.css}"
+              href="../../../static/business/styles/shop_styles.css"/>
+        <link rel="stylesheet" type="text/css" th:href="@{business/styles/shop_responsive.css}"
+              href="../../../static/business/styles/shop_responsive.css"/>
+        <link rel="stylesheet" th:href="@{business/css/linearicons.css}"
+              href="../../../static/business/css/linearicons.css"/>
+        <link href="../../../static/business/plugins/fontawesome-free-5.0.1/css/fontawesome-all.css" rel="stylesheet" type="text/css"/>
+        <link rel="stylesheet" th:href="@{business/css/themify-icons.css}"
+              href="../../../static/business/css/themify-icons.css" type="text/css"/>
+        <link rel="stylesheet" th:href="@{business/css/bootstrap.css}"
+              href="../../../static/business/css/bootstrap.css" type="text/css"/>
+        <link rel="stylesheet" th:href="@{business/css/owl.carousel.css}"
+              href="../../../static/business/css/owl.carousel.css" type="text/css"/>
+        <link rel="stylesheet" th:href="@{business/css/nice-select.css}"
+              href="../../../static/business/css/nice-select.css" type="text/css"/>
+        <link rel="stylesheet" th:href="@{business/css/nouislider.min.css}"
+              href="../../../static/business/css/nouislider.min.css" type="text/css"/>
+        <link rel="stylesheet" th:href="@{business/css/ion.rangeSlider.css}"
+              href="../../../static/business/css/ion.rangeSlider.css" type="text/css"/>
+        <link rel="stylesheet" th:href="@{business/css/ion.rangeSlider.skinFlat.css}"
+              href="../../../static/business/css/ion.rangeSlider.skinFlat.css" type="text/css"/>
+        <link rel="stylesheet" th:href="@{business/css/main.css}"
+              href="../../../static/business/css/main.css" type="text/css"/>
+
+        <style type="text/css">
+
+            .title h2{
+                display: inline;  
+                color: #333;
+                line-height: 40px;
+                margin-left: 10px;
+                font-family: 'Helvetica Neue', sans-serif;
+            }
+
+            .area_price {
+                display: block;
+                overflow: hidden;
+                line-height: 20px;
+                padding: 10px 10px 10px 0px;
+                font-family: 'Helvetica Neue', sans-serif;
+            }
+            .area_price strong {
+                display: inline-block;
+                overflow: hidden;
+                font-size: 24px;
+                color: #e10c00;
+                vertical-align: middle;
+                font-weight: bold;
+            }
+            .area_price strong:after {
+                content: ' \0111';
+            }
+
+            .area_price span.hisprice {
+                margin-left: 10px;
+                display: inline-block;
+                vertical-align: middle;
+                font-size: 18px;
+                color: #999;
+                text-decoration: line-through;
+
+            }
+            .area_price span.hisprice:after {
+                content: ' \0111';
+            }
+            .area_price label.installment {
+                background: #f28902;
+                margin: 0 0 0 5px;
+            }
+            .area_price label {
+                display: inline-block;
+                position: relative;
+                font-size: 11px;
+                color: #fff;
+                font-weight: 600;
+                background: #fff;
+                border-radius: 3px;
+                padding: 0 5px 0 8px;
+                /* margin: 0 0 5px 5px; */
+                height: 18px;
+            }
+            .m_default {
+                display: block;
+            }
+            .m_default p{
+                display: inline-block;
+            }
+
+            .default2 p{
+                display: inline-block;
+
+            }
+            .memory {
+                float: left;
+                width: 100%;
+                display: inline-block;
+            }
+            .memory .memory3{
+                display: block;
+            }
+            .memory .item.active {
+                border: 1px solid #f89008;
+                display: inline-block;
+            }
+            .memory .item {
+
+                position: relative;
+                background: #fff;
+                border: 1px solid #ddd;
+                -moz-box-shadow: 0 2px 3px 0 rgba(0,0,0,.15);
+                -webkit-box-shadow: 0 2px 3px 0 rgba(0,0,0,.15);
+                box-shadow: 0 2px 3px 0 rgba(0,0,0,.15);
+                -moz-border-radius: 3px;
+                -webkit-border-radius: 3px;
+                border-radius: 3px;
+                width: 24.5%;
+                float: left;
+                text-align: center;
+                padding: 10px 10px 10px 10px;
+                margin-right: 10px;
+                margin-bottom: 15px;
+                cursor: pointer;
+            }
+            a {
+                text-decoration: none;
+                display: block;
+                color: black;
+            }
+
+            .memory .item.active i.iconmobile-opt {
+                background: url(/Content/desktop/images/V4/game/check.png);
+                width: 14px;
+                height: 14px;
+            }
+            .memory i.iconmobile-opt {
+                /* background-position: -380px -30px; */
+                /* width: 16px; */
+                /* height: 16px; */
+                display: inline-block;
+                vertical-align: sub;
+                margin-right: 5px;
+            }
+            .memory .item strong {
+                font-size: 16px;
+                display: block;
+                margin-top: 5px;
+                color: #e10c00;
+            }
+
+            .config h5{
+                font-family: 'Helvetica Neue', sans-serif;
+                vertical-align: middle;
+                color: #919090;
+            }
+            .btnbuy{
+                text-align: center;
+
+
+
+            }
+            .btn_buyins{
+
+                text-align: center;
+                overflow: hidden;
+                padding: 5px 0;
+                cursor: pointer;
+                font-size: 12px;
+                color: #fff;
+                text-transform: uppercase;
+                border: 1px solid #288ad6;
+                border-radius: 3px;
+                background: #288ad6;
+                transition: all .3s ease;
+
+            }
+
+            .div{
+                display: inline;
+            }
+
+            .product-variation {
+                cursor: pointer;
+                min-width: 5rem;
+                min-height: 2.125rem;
+                -moz-box-sizing: border-box;
+                box-sizing: border-box;
+                padding: .25rem .75rem;
+                margin: 0 8px 8px 0;
+                color: rgba(0,0,0,.8);
+                text-align: left;
+                border-radius: 2px;
+                border: 1px solid rgba(0,0,0,.09);
+                position: relative;
+                background: #fff;
+                outline: 0;
+                word-break: break-word;
+                display: -webkit-inline-box;
+                display: -webkit-inline-flex;
+                display: -moz-inline-box;
+                display: -ms-inline-flexbox;
+                display: inline-flex;
+                -webkit-box-align: center;
+                -webkit-align-items: center;
+                -moz-box-align: center;
+                -ms-flex-align: center;
+                align-items: center;
+                -webkit-box-pack: center;
+                -webkit-justify-content: center;
+                -moz-box-pack: center;
+                -ms-flex-pack: center;
+                justify-content: center;
+
+            }
+            ._2iNrDS {
+                display: inline;
+                margin-right: 50px;
+            }
+            .flex .items-center{
+                display: inline;
+            }
+        </style>
+
+    </head>
+
+    <body>
+        <div class="super_container">
+
+            <!-- Header -->
+
+            <header class="header" th:replace = "~{business/fragment/fragment ::header}">
+
+            </header>
+
+            <div class="product_image_area">
+                <div class="container">
+                    <div class="title">
+                        <h2>Điện thoại</h2>
+                        <h2 th:text="${productDto.productName}"></h2>
+                        <h2 th:text="${productDto.rom}"></h2>
+                    </div>
+                    <hr/>
+                    <div class="row s_product_inner">
+                        <div class="col-lg-4">
+                            <div class="s_Product_carousel"  >
+                                <div class="single-prd-item">
+                                    <img th:src ="@{|/productImage?id=${productDto.productDetailId}|}"
+                                         class="card-img-top" alt="..."/>
+                                </div>
+                                <div class="single-prd-item">
+                                    <img class="img-fluid" th:src="${productDto.image2}" alt=""/>
+                                </div>
+                                <div class="single-prd-item">
+                                    <img class="img-fluid" th:src="${productDto.image3}" alt=""/>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-5 offset-lg-3">
+                            <div class="">
+                                <div class="area_price">
+                                    <strong th:text="${#numbers.formatDecimal(productDto.priceAfter, 0, 'COMMA', 0, 'POINT')}"></strong>
+                                    <span class="hisprice" th:text="${#numbers.formatDecimal(productDto.priceBefore, 0, 'COMMA', 0, 'POINT')}"></span>
+                                    <label class="installment">trả góp 0%</label>
+                                </div>
+                                <div class="memory memory3 ">
+                                    <div class="m_default">
+                                        <p>Bạn đang xem phiên bản: </p>
+                                        <p th:text="${productDto.rom}"></p>
+                                        <p> ,màu: </p>
+                                        <p th:text="${productDto.color}"></p>
+                                    </div>
+                                    <th:block th:each="listProductDto : ${pr}">  
+                                        <a aria-selected="false" class="item i1 active " th:href="@{/productdetail(id=${listProductDto.productDetailId})}">
+                                            <span class="iconmobile-opt" th:text="${listProductDto.rom}">
+                                                <i></i>
+                                            </span>
+                                            <strong th:text="${#numbers.formatDecimal(listProductDto.priceAfter, 0, 'COMMA', 0, 'POINT')}"></strong>
+                                        </a>
+                                    </th:block>
+                                </div>
+                                <table class="table config">
+
+                                </table>
+
+
+                                <div class="flex items-center" >
+                                    <label class="_2iNrDS div">màu sắc</label>
+                                    <div style=" margin-left: 108px; margin-top: -30px;">
+                                        <div style="display:inline;" th:each="listProductDto : ${color}">
+                                            <a class="product-variation" th:href="@{/productdetail(id=${listProductDto.id})}">
+                                                <span class="iconmobile-opt" th:text="${listProductDto.color}"></span>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <form action="/buyProduct">
+                                    <div class="flex items-center" style="margin-bottom: 10px; margin-top: 20px;">
+                                        <label class="_2iNrDS div">Số lượng</label>                 
+                                        <div style="display: inline;">
+                                            <input class="product-variation" id="quantity" name="quantity" value="1" min="1" th:max="${prDt.amount}"
+                                                   type="number" style="width: 50px;" />
+                                            <input type="hidden" id="code" name="code" th:value="${productDto.productDetailId}"/>
+                                        </div>
+                                        <div style="display: inline;">
+                                            <label>Số lượng còn trong kho:</label>
+                                            <label th:text="${prDt.amount}"></label>
+                                        </div>
+                                        <div class="flex items-center" >
+                                            <div class="default2">
+                                                <p>Sản phẩm đang chọn: </p>
+                                                <p th:text="${productDto.productName}"></p>
+                                                <p th:text="${productDto.rom}"></p>
+                                                <p>, màu </p>
+                                                <p th:text="${productDto.color}"></p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="btnbuy">
+                                        <input type="submit" value="Add to Cart" class="btn_buyins"/>                                        
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--================End Single Product Area =================-->
+
+            <!--================Product Description Area =================-->
+            <section class="product_description_area">
+                <div class="container">
+                    <ul class="nav nav-tabs" id="myTab" role="tablist">
+                        <li class="nav-item">
+                            <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" 
+                               aria-selected="true">Description</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile"
+                               aria-selected="false">Specification</a>
+                        </li>
+                        <li class="nav-item ">
+                            <a class="nav-link" id="review-tab" data-toggle="tab" href="#review" role="tab" aria-controls="review"
+                               aria-selected="false">Reviews</a>
+                        </li>
+                    </ul>
+                    <div class="tab-content" id="myTabContent">
+                        <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                            <p>Beryl Cook is one of Britain’s most talented and amusing artists .Beryl’s pictures feature women of all shapes
+                                and sizes enjoying themselves .Born between the two world wars, Beryl Cook eventually left Kendrick School in
+                                Reading at the age of 15, where she went to secretarial school and then into an insurance office. After moving to
+                                London and then Hampton, she eventually married her next door neighbour from Reading, John Cook. He was an
+                                officer in the Merchant Navy and after he left the sea in 1956, they bought a pub for a year before John took a
+                                job in Southern Rhodesia with a motor company. Beryl bought their young son a box of watercolours, and when
+                                showing him how to use it, she decided that she herself quite enjoyed painting. John subsequently bought her a
+                                child’s painting set for her birthday and it was with this that she produced her first significant work, a
+                                half-length portrait of a dark-skinned lady with a vacant expression and large drooping breasts. It was aptly
+                                named ‘Hangover’ by Beryl’s husband and</p>
+                            <p>It is often frustrating to attempt to plan meals that are designed for one. Despite this fact, we are seeing
+                                more and more recipe books and Internet websites that are dedicated to the act of cooking for one. Divorce and
+                                the death of spouses or grown children leaving for college are all reasons that someone accustomed to cooking for
+                                more than one would suddenly need to learn how to adjust all the cooking practices utilized before into a
+                                streamlined plan of cooking that is more efficient for one person creating less</p>
+                        </div>
+                        <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+                            <div class="table-responsive">
+                                <table class="table">
+                                    <tbody>
+                                        <tr>
+                                            <td>
+                                                <h5>Màn hình:</h5>
+                                            </td>
+                                            <td>
+                                                <h5 th:text="${prDt.configurator.screen}"></h5>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <h5>Hệ điều hành:</h5>
+                                            </td>
+                                            <td>
+                                                <h5 th:text="${prDt.configurator.chipset}"></h5>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <h5>Camera sau:</h5>
+                                            </td>
+                                            <td>
+                                                <h5 th:text="${prDt.configurator.cameraRear}"></h5>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <h5>Camera trước:</h5>
+                                            </td>
+                                            <td>
+                                                <h5 th:text="${prDt.configurator.cameraFront}"></h5>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <h5>RAM:</h5>
+                                            </td>
+                                            <td>
+                                                <h5 th:text="${prDt.configurator.ram}"></h5>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+
+                            </div>
+                        </div>
+                        <div class="tab-pane fade" id="review" role="tabpanel" aria-labelledby="review-tab">
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div class="row total_rate"></div>
+                                    <div class="review_list" th:each="review : ${review}">
+                                        <div class="review_item">
+                                            <div class="media">
+                                                <div class="d-flex">
+                                                    <img src="business/img/ava.jpg" alt="" style="border-radius: 100%;
+                                                         width: 30px; height: 30px;"/>
+                                                </div>
+                                                <div class="media-body">
+                                                    <h4 th:text="${review.userName}"></h4>
+                                                </div>
+                                            </div>
+                                            <p th:text="${review.conten}"></p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="review_box">
+                                        <h4>Add a Review</h4>
+                                        <p>Your Rating:</p>
+                                        <form action="#" class="row contact_form" th:action="@{/review}" method="post" id="contactForm" novalidate="novalidate">
+                                            <input th:value="${productDto.productDetailId}" name="prddtid" hidden=""/>
+                                            <input th:value="${productDto.productId}" name="prdid" hidden=""/>
+                                            <div class="col-md-12">
+                                                <div class="form-group">
+                                                    <textarea class="form-control" name="content" 
+                                                              id="message" rows="1" placeholder="Review" 
+                                                              onfocus="this.placeholder = ''" onblur="this.placeholder = 'Review'"></textarea>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-12 text-right">
+                                                <button type="submit" value="submit" class="primary-btn">Submit Now</button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+
+            <footer class="footer" th:replace = "~{business/fragment/fragment ::footer}">
+
+            </footer>
+
+            <!-- Copyright -->
+
+            <div class="copyright" th:replace = "~{business/fragment/fragment ::copyright}"></div>
+        </div>
+
+        <script src="../../../static/business/js/jquery-3.3.1.min.js"
+        th:src="@{business/js/jquery-3.3.1.min.js}" type="text/javascript"></script>
+        <script src="../../../static/business/styles/bootstrap4/popper.js" 
+        th:src="@{business/styles/bootstrap4/popper.js}" type="text/javascript"></script>
+        <script src="../../../static/business/styles/bootstrap4/bootstrap.min.js" 
+        th:src="@{business/styles/bootstrap4/bootstrap.min.js}" type="text/javascript"></script>
+        <script src="../../../static/business/jss/vendor/jquery-2.2.4.min.js"></script>
+        <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" 
+                th:integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4"
+        crossorigin="anonymous"></script>-->
+        <script src="../../../static/business/jss/vendor/bootstrap.min.js"></script>
+        <script src="../../../static/business/jss/jquery.ajaxchimp.min.js"></script>
+        <script src="../../../static/business/jss/jquery.nice-select.min.js"></script>
+        <script src="../../../static/business/jss/jquery.sticky.js"></script>
+        <script src="../../../static/business/jss/nouislider.min.js"></script>
+        <script src="../../../static/business/jss/jquery.magnific-popup.min.js"></script>
+        <script src="../../../static/business/jss/owl.carousel.min.js"></script>
+        <!--gmaps Js-->
+        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCjCGmQ0Uq4exrzdcL6rvxywDDOvfAu6eE"></script>
+        <script src="../../../static/business/jss/gmaps.min.js"></script>
+        <script src="../../../static/business/jss/main.js"></script>
+    </body>
+</html>

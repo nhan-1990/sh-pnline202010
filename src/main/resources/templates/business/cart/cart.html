@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title>Cart</title>
+        <meta charset="utf-8"/>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+        <meta name="description" content="OneTech shop project"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1"/>
+
+        <link rel="stylesheet" type="text/css" th:href="@{/business/styles/bootstrap4/bootstrap.min.css}"
+              href="../../../static/business/styles/bootstrap4/bootstrap.min.css"/>
+        <link href="../../../static/business/plugins/fontawesome-free-5.0.1/css/fontawesome-all.css"
+              th:href="@{/business/plugins/fontawesome-free-5.0.1/css/fontawesome-all.css}"
+              rel="stylesheet" type="text/css"/>
+        <link rel="stylesheet" type="text/css" href="../../../static/business/styles/cart_styles.css"
+              th:href="@{/business/styles/cart_styles.css}"/>
+        <link rel="stylesheet" type="text/css" href="../../../static/business/styles/cart_responsive.css"
+              th:href="@{/business/styles/cart_responsive.css}"/>
+
+
+        <link rel="stylesheet" href="../../../static/business/css/font-awesome.min.css" type="text/css"/>
+
+    </head>
+
+    <body>
+
+        <div class="super_container">
+
+            <!-- Header -->
+            <header class="header" th:replace = "~{business/fragment/fragment ::header}">
+
+            </header>
+
+            <!-- Cart -->
+
+            <div class="cart_section row">
+
+                <div class="col-lg-7 offset-lg-1">
+                    <div class="cart_container">
+
+                        <div class="cart_items">
+                            <ul class="cart_list">
+                                <li class="cart_item clearfix">
+                                    <th:block th:if="${cartForm == null || cartForm.cartLines == null || cartForm.cartLines.empty}">
+                                        <h2>There is no items in Cart</h2>
+                                        <a th:href="@{/}">Show Product List</a>
+                                    </th:block>
+
+                                    <th:block th:if="${cartForm != null && cartForm.cartLines != null && !cartForm.cartLines.empty}">
+                                        <h3>
+                                            Giỏ hàng
+                                            <span th:utext="${cartForm.quantityTotal}"></span>
+                                            sản phẩm
+                                        </h3><br/><br/>
+                                        <div th:each="cartLineInfo, varStatus : ${cartForm.cartLines}">
+                                            <div class="d-flex flex-row flex-nowrap">                                                  
+                                                <div class="cart_item_image cart_info_col">                                                                                                    
+                                                    <img th:src ="@{|/productImg?code=${cartLineInfo.productCartDto.productDetailId}|}" 
+                                                         style="width: 100px;" alt="img1"/>
+                                                </div> 
+                                                <div class="justify-content-between cart_item_content">
+                                                    <div class="cart_item_desc">                                                            
+                                                        <a class="cart_item_name" th:utext="${cartLineInfo.productCartDto.productName}"></a>
+                                                        <div class="cart_item_color cart_info_col" style="margin-bottom: 10px">
+                                                            <div class="cart_item_text">
+                                                                <span th:utext="${cartLineInfo.productCartDto.color}"></span>
+                                                            </div>
+                                                        </div>
+                                                        <div class="input-group-btn">
+                                                            <h4>
+                                                                <a class="fas fa-trash" 
+                                                                   th:href="@{|/cartRemoveProduct?code=${cartLineInfo.productCartDto.productDetailId}|}">                                                                            
+                                                                </a>
+                                                            </h4>
+                                                        </div>                                                            
+                                                    </div>
+                                                </div>
+
+                                                <div class="cart_product_detail">
+                                                    <div class="cart_item_price ">
+                                                        <div class="cart_item_real-price">
+                                                            <span th:utext="${#numbers.formatDecimal(cartLineInfo.priceBefore,3,'POINT',0,'COMMA')} + 'đ'"></span>
+                                                            <span th:utext="'-' + ${#numbers.formatDecimal(cartLineInfo.priceReduced,3,'POINT',0,'COMMA')} + 'đ'"></span>
+                                                            <span style="font-weight: bold" th:utext="${#numbers.formatDecimal(cartLineInfo.priceAfter,3,'POINT',0,'COMMA')} + 'đ'"></span>
+                                                        </div>                                                                        
+                                                    </div>     
+                                                    <div class="d-flex flex-row flex-nowrap "> 
+                                                        <div class="input-group-btn">
+                                                            <a th:href="@{|/decreaseProduct?code=${cartLineInfo.productCartDto.productDetailId}|}" 
+                                                               class="btn btn-danger" th:classappend="${cartLineInfo.quantity eq 1} ? 'disabled'">-</a>
+                                                        </div>
+                                                        <input th:name="|cartLines[${varStatus.index}].quantity|" style="width: 50px" 
+                                                               th:value="${cartLineInfo.quantity}" max="${cartLineInfo.productCartDto.amount}" class="form-control input-group-text" type="text"/> 
+                                                        <div class="input-group-btn">
+                                                            <a th:href="@{|/increaseProduct?code=${cartLineInfo.productCartDto.productDetailId}|}" 
+                                                               class="btn btn-danger">+</a>                                                                             
+                                                        </div>
+                                                    </div>                                                         
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </th:block>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Order Total -->
+                <div class="col-lg-3">
+                    <div class="cart_items">
+                        <div class="order_total">
+                            <div class="order_total_content">                                        
+                                <div class="order_total_title">Order Total:</div>
+                                <div th:if="${cartForm.amountTotal == null || cartForm.amountTotal == 0}">
+                                    <div class="order_total_amount" >
+                                        <span th:text="${#numbers.formatDecimal(cartForm.amountTotal,0,'POINT',0,'COMMA')} + ' đ'"/>
+                                    </div>  
+                                </div>
+                                <div th:if="${cartForm.amountTotal != null && cartForm.amountTotal != 0}">
+                                    <div class="order_total_amount" >
+                                        <span th:text="${#numbers.formatDecimal(cartForm.amountTotal,3,'POINT',0,'COMMA')} + ' đ'"/>
+                                    </div>  
+                                </div>
+                            </div>                            
+                        </div>
+                        <a th:href="@{/shoppingCartConfirmation}" class="btn btn-lg btn-danger cart_order_button">Order now</a>
+                        <a th:href="@{/}" class="btn btn-lg btn-primary cart_order_button">Continue Buy</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Newsletter -->
+
+            <div class="newsletter">
+                <div class="container">
+                    <div class="row">
+                        <div class="col">
+                            <div class="newsletter_container d-flex flex-lg-row flex-column align-items-lg-center align-items-center justify-content-lg-start justify-content-center">
+                                <div class="newsletter_title_container">
+                                    <div class="newsletter_icon"><img src="images/send.png" alt=""></div>
+                                    <div class="newsletter_title">Sign up for Newsletter</div>
+                                    <div class="newsletter_text"><p>...and receive %20 coupon for first shopping.</p></div>
+                                </div>
+                                <div class="newsletter_content clearfix">
+                                    <form action="#" class="newsletter_form">
+                                        <input type="email" class="newsletter_input" required="required" placeholder="Enter your email address">
+                                            <button class="newsletter_button">Subscribe</button>
+                                    </form>
+                                    <div class="newsletter_unsubscribe_link"><a href="#">unsubscribe</a></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Footer -->
+
+            <footer class="footer" th:replace = "~{business/fragment/fragment ::footer}">
+            </footer>
+
+            <!-- Copyright -->
+
+            <div class="copyright" th:replace = "~{business/fragment/fragment ::copyright}">
+            </div>
+        </div>
+
+        <script src="../../../static/business/js/jquery-3.3.1.min.js" 
+        th:src="@{business/js/jquery-3.3.1.min.js}" type="text/javascript"></script>
+        <script src="../../../static/business/styles/bootstrap4/popper.js" 
+        th:src="@{business/styles/bootstrap4/popper.js}" type="text/javascript"></script>        
+        <script src="../../../static/business/styles/bootstrap4/bootstrap.min.js" type="text/javascript"></script>
+        <script src="../../../static/business/plugins/greensock/TweenMax.min.js" type="text/javascript"></script>
+        <script src="../../../static/business/plugins/greensock/TimelineMax.min.js" type="text/javascript"></script>
+        <script src="../../../static/business/plugins/scrollmagic/ScrollMagic.min.js" type="text/javascript"></script>
+        <script src="../../../static/business/plugins/greensock/animation.gsap.min.js" type="text/javascript"></script>
+        <script src="../../../static/business/plugins/greensock/ScrollToPlugin.min.js" type="text/javascript"></script>
+        <script src="../../../static/business/plugins/easing/easing.js" type="text/javascript"></script>
+        <script src="../../../static/business/js/cart_custom.js" type="text/javascript"></script>
+    </body>
+
+</html>

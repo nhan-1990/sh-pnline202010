@@ -1,0 +1,343 @@
+﻿<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+
+    <head>
+        <meta charset="utf-8"/>
+        <title>Onetech</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <meta content="Responsive bootstrap 4 admin template" name="description"/>
+        <meta content="Coderthemes" name="author"/>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+        <!-- App favicon -->
+        <link rel="shortcut icon" href="admin/assets\images\favicon.ico"/>
+
+        <!-- Plugins css-->
+        <link href="/admin/assets\libs\sweetalert2\sweetalert2.min.css"
+              rel="stylesheet" type="text/css"/>
+
+        <!-- App css -->
+        <link href="/admin/assets\css\bootstrap.min.css" rel="stylesheet"
+              type="text/css" id="bootstrap-stylesheet"/>
+        <link href="/admin/assets\css\icons.min.css" rel="stylesheet"
+              type="text/css"/>
+        <link href="/admin/assets\css\app.min.css" rel="stylesheet"
+              type="text/css" id="app-stylesheet"/>
+
+    </head>
+
+    <body>
+
+        <!-- Begin page -->
+        <div id="wrapper">
+
+
+            <!-- Topbar Start -->
+            <div class="navbar-custom" th:fragment="header">
+                <ul class="list-unstyled topnav-menu float-right mb-0">
+
+                    <li class="dropdown notification-list">
+                        <a class="nav-link dropdown-toggle  waves-effect"
+                           data-toggle="dropdown" href="#" role="button" aria-haspopup="false"
+                           aria-expanded="false"> 
+                            <i class="mdi mdi-email-outline noti-icon"></i> 
+                            <span class="badge badge-purple rounded-circle noti-icon-badge">3</span>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-right dropdown-lg">
+
+                            <!-- item-->
+                            <div class="dropdown-item noti-title">
+                                <h5 class="font-16 m-0">
+                                    <span class="float-right">
+                                        <a href="" class="text-dark">
+                                            <small>Clear All</small>
+                                        </a>
+                                    </span>Chat
+                                </h5>
+                            </div>
+
+                            <!-- All-->
+                            <a href="javascript:void(0);"
+                               class="dropdown-item text-center text-primary notify-item notify-all">
+                                View all
+                                <i class="fi-arrow-right"></i>
+                            </a>
+                        </div>
+                    </li>
+
+                    <li class="dropdown notification-list">
+                        <a class="nav-link dropdown-toggle waves-effect"
+                           data-toggle="dropdown" href="#" role="button" aria-haspopup="false"
+                           aria-expanded="false"> 
+                            <i class="mdi mdi-bell-outline noti-icon"></i> 
+                            <span class="badge badge-pink rounded-circle noti-icon-badge">4</span>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-right dropdown-lg">
+
+                            <!-- All-->
+                            <a href="javascript:void(0);"
+                               class="dropdown-item text-center notify-item notify-all"> 
+                                See all notifications 
+                            </a>
+                        </div>
+                    </li>
+
+                    <li class="dropdown notification-list">
+                        <a class="nav-link dropdown-toggle nav-user mr-0 waves-effect"
+                           data-toggle="dropdown" href="#" role="button" aria-haspopup="false"
+                           aria-expanded="false"> 
+                            <img src="/admin/assets\images\users\avatar-1.jpg" alt="user-image"
+                                 class="rounded-circle"/> 
+                            <span class="pro-user-name ml-1" th:text="${user.userName}"> 
+                                <i class="mdi mdi-chevron-down"></i>
+                            </span>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-right profile-dropdown ">
+                            <!-- item-->
+                            <div class="dropdown-header noti-title">
+                                <h6 class="text-overflow m-0">Welcome !</h6>
+                            </div>
+
+                            <!-- item-->
+                            <a href="javascript:void(0);" class="dropdown-item notify-item">
+                                <i class="mdi mdi-account-outline"></i> 
+                                <span>Profile</span>
+                            </a>
+
+                            <!-- item-->
+                            <a href="javascript:void(0);" class="dropdown-item notify-item">
+                                <i class="mdi mdi-settings-outline"></i> 
+                                <span>Settings</span>
+                            </a>
+
+                            <!-- item-->
+                            <a href="javascript:void(0);" class="dropdown-item notify-item">
+                                <i class="mdi mdi-lock-outline"></i> 
+                                <span>Lock Screen</span>
+                            </a>
+
+                            <div class="dropdown-divider"></div>
+
+                            <!-- item-->
+                            <a href="javascript:void(0);" class="dropdown-item notify-item">
+                                <i class="mdi mdi-logout-variant"></i> 
+                                <span>Logout</span>
+                            </a>
+
+                        </div>
+                    </li>
+
+                    <li class="dropdown notification-list">
+                        <a href="javascript:void(0);" class="nav-link right-bar-toggle waves-effect">
+                            <i class="mdi mdi-settings-outline noti-icon"></i>
+                        </a>
+                    </li>
+                </ul>
+
+                <!-- LOGO -->
+                <div class="logo-box">
+                    <a href="index.html" class="logo text-center logo-light"> 
+                        <span class="logo-lg"> 
+                            <img src="admin/assets\images\logo-light.png" alt="" height="18"/>
+                            <!-- <span class="logo-lg-text-dark">Velonic</span> -->
+                        </span>
+                    </a>
+                </div>
+                <ul class="list-unstyled topnav-menu topnav-menu-left m-0">
+                    <li>
+                        <button class="button-menu-mobile waves-effect">
+                            <i class="mdi mdi-menu"></i>
+                        </button>
+                    </li>
+                </ul>
+            </div>
+            <!-- end Topbar -->
+            <!-- ========== Left Sidebar Start ========== -->
+
+
+
+            <div class="left-side-menu" th:fragment="menu">
+
+                <div class="slimscroll-menu">
+
+                    <!--- Sidemenu -->
+                    <div id="sidebar-menu">
+                        <ul class="metismenu" id="side-menu">
+                            <li class="menu-title">Navigation</li>
+
+                            <li>
+                                <a href="javascript: void(0);" class="waves-effect">
+                                    <i class="ion-md-speedometer"></i> 
+                                    <span> Dashboard </span> 
+                                    <span class="badge badge-info badge-pill float-right"> 3 </span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="/admin/product" class="waves-effect">
+                                    <i class="ion-ios-list"></i> 
+                                    <span> Product </span> 
+                                </a>
+                            </li>
+                            <li>
+                                <a href="/admin/order" class="waves-effect">
+                                    <i class="ion-ios-list"></i> 
+                                    <span> Order </span> 
+                                </a>
+                            </li>
+                            <li>
+                                <a href="/admin/trademark" class="waves-effect">
+                                    <i class="ion-ios-list"></i> 
+                                    <span> Trademark </span> 
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+
+
+
+
+            <div class="content-page">
+                <div class="content">
+
+                    <!-- Start Content-->
+                    <div class="container-fluid">
+
+                        <!-- start page title -->
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="page-title-box">
+                                    <h4 class="page-title">Welcome !</h4>
+                                    <div class="page-title-right">
+                                        <ol class="breadcrumb p-0 m-0">
+                                            <li class="breadcrumb-item"><a href="#">Velonic</a></li>
+                                            <li class="breadcrumb-item"><a href="#">Dashboard</a></li>
+                                            <li class="breadcrumb-item active">Dashboard 1</li>
+                                        </ol>
+                                    </div>
+                                    <div class="clearfix"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- end page title -->
+
+                        <div class="row">
+                            <div class="col-xl-3 col-sm-6">
+                                <div class="card bg-pink">
+                                    <div class="card-body widget-style-2">
+                                        <div class="text-white media">
+                                            <div class="media-body align-self-center">
+                                                <h2 class="my-0 text-white">
+                                                    <span data-plugin="counterup">50</span>
+                                                </h2>
+                                                <p class="mb-0">Daily Visits</p>
+                                            </div>
+                                            <i class="ion-md-eye"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-xl-3 col-sm-6">
+                                <div class="card bg-purple">
+                                    <div class="card-body widget-style-2">
+                                        <div class="text-white media">
+                                            <div class="media-body align-self-center">
+                                                <h2 class="my-0 text-white">
+                                                    <span data-plugin="counterup">12056</span>
+                                                </h2>
+                                                <p class="mb-0">Sales</p>
+                                            </div>
+                                            <i class="ion-md-paper-plane"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-xl-3 col-sm-6">
+                                <div class="card bg-info">
+                                    <div class="card-body widget-style-2">
+                                        <div class="text-white media">
+                                            <div class="media-body align-self-center">
+                                                <h2 class="my-0 text-white">
+                                                    <span data-plugin="counterup">1268</span>
+                                                </h2>
+                                                <p class="mb-0">New Orders</p>
+                                            </div>
+                                            <i class="ion-ios-pricetag"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-xl-3 col-sm-6">
+                                <div class="card bg-primary">
+                                    <div class="card-body widget-style-2">
+                                        <div class="text-white media">
+                                            <div class="media-body align-self-center">
+                                                <h2 class="my-0 text-white">
+                                                    <span data-plugin="counterup">145</span>
+                                                </h2>
+                                                <p class="mb-0">New Users</p>
+                                            </div>
+                                            <i class="mdi mdi-comment-multiple"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <!-- end container-fluid -->
+
+                </div>
+                <footer class="footer" th:fragment="footer">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-md-12">
+                                2020 &copy; Onetech theme by <a href="">Onetech</a>
+                            </div>
+                        </div>
+                    </div>
+                </footer>
+                <!-- end Footer -->
+
+            </div>
+
+        </div>
+
+
+
+
+        <!-- Vendor js -->
+        <script src="admin/assets\js\vendor.min.js"></script>
+
+        <script src="admin/assets\libs\moment\moment.min.js"></script>
+        <script src="admin/assets\libs\jquery-scrollto\jquery.scrollTo.min.js"></script>
+        <script src="admin/assets\libs\sweetalert2\sweetalert2.min.js"></script>
+
+        <!-- Chat app -->
+        <script src="admin/assets\js\pages\jquery.chat.js"></script>
+
+        <!-- Todo app -->
+        <script src="admin/assets\js\pages\jquery.todo.js"></script>
+
+        <!--Morris Chart-->
+        <script src="admin/assets\libs\morris-js\morris.min.js"></script>
+        <script src="admin/assets\libs\raphael\raphael.min.js"></script>
+
+        <!-- Sparkline charts -->
+        <script
+        src="admin/assets\libs\jquery-sparkline\jquery.sparkline.min.js"></script>
+
+        <!-- Dashboard init JS -->
+        <script src="admin/assets\js\pages\dashboard.init.js"></script>
+
+        <!-- App js -->
+        <script src="admin/assets\js\app.min.js"></script>
+
+    </body>
+</html>
