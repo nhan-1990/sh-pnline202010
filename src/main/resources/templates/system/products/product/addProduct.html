@@ -1,0 +1,159 @@
+﻿<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+
+    <head>
+        <meta charset="utf-8"/>
+        <title>onetech</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <meta content="Responsive bootstrap 4 admin template" name="description"/>
+        <meta content="Coderthemes" name="author"/>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+        <!-- App favicon -->
+        <link rel="shortcut icon" href="assets\images\favicon.ico"/>
+
+        <!-- Responsive Table css -->
+        <link href="assets\libs\rwd-table\rwd-table.min.css" rel="stylesheet"
+              type="text/css"/>
+
+        <!-- App css -->
+        <link href="assets\css\bootstrap.min.css" rel="stylesheet"
+              type="text/css" id="bootstrap-stylesheet"/>
+        <link href="assets\css\icons.min.css" rel="stylesheet" type="text/css"/>
+        <link href="assets\css\app.min.css" rel="stylesheet" type="text/css"
+              id="app-stylesheet"/>
+        <style type="text/css">
+            .error{
+                color: red;
+            }
+        </style>
+    </head>
+    <body>
+
+        <!-- Begin page -->
+        <div id="wrapper">
+            <!-- Topbar Start -->
+            <div class="navbar-custom"
+                 th:replace="~{system/fragment/index ::header}"></div>
+            <div class="left-side-menu"
+                 th:replace="~{system/fragment/index ::menu}"></div>
+            <div class="content-page">
+                <div class="content">
+
+                    <!-- Start Content-->
+                    <div class="container-fluid">
+
+                        <!-- start page title -->
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="page-title-box">
+                                    <h4 class="page-title">Add/Edit Product</h4>
+                                    <div class="page-title-right">
+                                        <ol class="breadcrumb p-0 m-0">
+                                            <li class="breadcrumb-item"><a href="/home">Onetech</a></li>
+                                            <li class="breadcrumb-item"><a href="/admin">Product List</a></li>
+                                            <li class="breadcrumb-item active">Add/Edit Product</li>
+                                        </ol>
+                                    </div>
+                                    <div class="clearfix"></div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6" style="margin: 0 auto;">
+                                        <div class="card">
+                                            <div class="card-body">
+                                                <h4 class="header-title mb-4">Form row</h4>
+
+                                                <form action="#" th:action="@{/admin/saveprd}"
+                                                      th:object="${prdto}" method="post">
+
+                                                    <input style="margin: 0 auto;" type="text" hidden=""
+                                                           th:field="*{id}"/>
+
+                                                    <div class="form-row">
+                                                        <div class="form-group col-md-12">
+                                                            <label for="inputEmail4" class="col-form-label">Name</label>
+                                                            <input style="margin: 0 auto;" type="text"
+                                                                   class="form-control" id="inputEmail4"
+                                                                   placeholder="name" th:field="*{name}"/> 
+                                                            <span class="error" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></span>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="form-row">
+                                                        <div class="form-group col-md-12">
+                                                            <label for="inputState" class="col-form-label">Promotion</label>
+
+                                                            <select id="inputState" class="form-control"
+                                                                    th:field="*{promotionId}">
+                                                                <th:block th:each="pr: ${pr}">
+                                                                    <option th:value="${pr.promotionId}" th:text="${pr.promotionName}"></option>
+                                                                </th:block>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-row">
+                                                        <div class="form-group col-md-12">
+                                                            <label for="inputState" class="col-form-label">Trademark</label>
+                                                            <select id="inputState" class="form-control"
+                                                                    th:field="*{trademarkId}">
+                                                                <th:block th:each="td : ${td}">
+                                                                    <option th:value="${td.trademarkId}" th:text="${td.trademarkName}"></option>
+                                                                </th:block>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-row">
+                                                        <div class="form-group col-md-12">
+                                                            <label for="inputEmail4" class="col-form-label">Note</label>
+                                                            <input style="margin: 0 auto;" type="text"
+                                                                   class="form-control" id="inputEmail4"
+                                                                   placeholder="Notes" th:field="*{note}"/>
+                                                        </div>
+                                                    </div>
+                                                    <button type="submit" class="btn btn-primary">Submit</button>
+                                                    <a href="/admin" class="btn btn-warning" role="button">Cancel</a>                                                        
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- end page title -->
+
+
+                    </div>
+                </div>
+                <!-- end row -->
+
+            </div>
+            <!-- end container-fluid -->
+
+        </div>
+        <!-- end content -->
+
+
+
+        <!-- Footer Start -->
+        <footer class="footer" th:replace="~{system/fragment/index ::footer}">
+
+        </footer>
+        <!-- end Footer -->
+
+        </div>
+
+        <!-- Vendor js -->
+        <script src="assets\js\vendor.min.js"></script>
+
+        <!-- Responsive Table js -->
+        <script src="assets\libs\rwd-table\rwd-table.min.js"></script>
+
+        <!-- Init js -->
+        <script src="assets\js\pages\responsive-table.init.js"></script>
+
+        <!-- App js -->
+        <script src="assets\js\app.min.js"></script>
+
+    </body>
+
+</html>

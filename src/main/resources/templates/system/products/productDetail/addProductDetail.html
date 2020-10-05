@@ -1,0 +1,187 @@
+﻿<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+
+    <head>
+        <meta charset="utf-8"/>
+        <title>onetech</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <meta content="Responsive bootstrap 4 admin template" name="description"/>
+        <meta content="Coderthemes" name="author"/>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+        <!-- App favicon -->
+        <link rel="shortcut icon" href="assets\images\favicon.ico"/>
+
+        <!-- Responsive Table css -->
+        <link href="assets\libs\rwd-table\rwd-table.min.css" rel="stylesheet"
+              type="text/css"/>
+
+        <!-- App css -->
+        <link href="assets\css\bootstrap.min.css" rel="stylesheet"
+              type="text/css" id="bootstrap-stylesheet"/>
+        <link href="assets\css\icons.min.css" rel="stylesheet" type="text/css"/>
+        <link href="assets\css\app.min.css" rel="stylesheet" type="text/css"
+              id="app-stylesheet"/>
+        <style type="text/css">
+            .error{
+                color: red;
+            }
+        </style>
+    </head>
+    <body>
+
+        <!-- Begin page -->
+        <div id="wrapper">
+            <!-- Topbar Start -->
+            <div class="navbar-custom"
+                 th:replace="~{system/fragment/index ::header}"></div>
+            <div class="left-side-menu"
+                 th:replace="~{system/fragment/index ::menu}"></div>
+            <div class="content-page">
+                <div class="content">
+
+                    <!-- Start Content-->
+                    <div class="container-fluid">
+
+                        <!-- start page title -->
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="page-title-box">
+                                    <h4 class="page-title">Add Product Detail</h4>
+                                    <div class="page-title-right">
+                                        <ol class="breadcrumb p-0 m-0">
+                                            <li class="breadcrumb-item"><a href="/home">Onetech</a></li>
+                                            <li class="breadcrumb-item"><a href="/admin/product">Product</a></li>                                            
+                                            <li class="breadcrumb-item active">Add Product Detail</li>
+                                        </ol>
+                                    </div>
+                                    <div class="clearfix"></div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6" style="margin: 0 auto;">
+                                        <div class="card">
+                                            <div class="card-body">
+                                                <h4 class="header-title mb-4">Form row</h4>
+
+                                                <form action="#" th:action="@{/admin/saves}"
+                                                      th:object="${prdDT}" method="post" enctype="multipart/form-data" >
+                                                    <span class="error" th:if="${#fields.hasErrors('colorVsConfig')}" th:errors="*{colorVsConfig}"></span>
+
+                                                    <input style="margin: 0 auto;" type="text" hidden=""
+                                                           th:field="*{productId}"/>
+                                                    <input style="margin: 0 auto;" type="text" hidden=""
+                                                           th:field="*{productDetailId}"/>
+
+                                                    <div class="form-row">
+                                                        <div class="form-group col-md-12">
+                                                            <label for="inputEmail4" class="col-form-label">Amount</label>
+                                                            <input style="margin: 0 auto;" type="text" 
+                                                                   class="form-control" id="inputEmail4"
+                                                                   placeholder="Amount" th:field="*{amount}"/>
+                                                            <span class="error"
+                                                                  th:if="${#fields.hasErrors('amount')}"
+                                                                  th:errors="*{amount}"></span>
+                                                            <span class="error"
+                                                                  th:if="${#fields.hasErrors('amouts')}"
+                                                                  th:errors="*{amouts}"></span>
+
+                                                        </div>
+
+                                                    </div>
+                                                    <div class="form-row">
+
+                                                        <div class="form-group col-md-12">
+                                                            <label for="inputPassword4" class="col-form-label">Price</label>
+                                                            <input type="text" class="form-control"
+                                                                   id="inputPassword4" placeholder="Price"
+                                                                   th:field="*{price}"/>
+                                                            <span th:if="${#fields.hasErrors('price')}" class="error"
+                                                                  th:errors="*{price}"></span>
+                                                            <span th:if="${#fields.hasErrors('prices')}" class="error"
+                                                                  th:errors="*{prices}"></span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-row">
+
+                                                        <div class="form-group col-md-12">
+                                                            <label for="inputState" class="col-form-label">Config</label>
+
+                                                            <select id="inputState" class="form-control"
+                                                                    th:field="*{configId}">
+                                                                <th:block th:each="config : ${config}">
+                                                                    <option th:value="${config.configuratorId}" th:text="${config.rom}"></option>
+                                                                </th:block>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-row">
+                                                        <div class="form-group col-md-12">
+                                                            <label for="inputState" class="col-form-label">Color</label>
+                                                            <select id="inputState" class="form-control"
+                                                                    th:field="*{colorId}">
+                                                                <th:block th:each="color : ${color}">
+                                                                    <option th:value="${color.colorId}" th:text="${color.colorName}"></option>
+                                                                </th:block>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-row">
+                                                        <div class="form-group col-md-12">													
+                                                            <label for="inputState" class="col-form-label">Image</label>                                                            
+                                                            <input type="file" class="form-control"
+                                                                   th:field="*{file1}"/>
+                                                            <input type="file" class="form-control"
+                                                                   th:field="*{file2}"/>
+                                                        </div>
+                                                    </div>
+                                                    <button type="submit" class="btn btn-primary">Submit</button>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- end page title -->
+
+
+                    </div>
+                </div>
+                <!-- end row -->
+
+            </div>
+            <!-- end container-fluid -->
+
+        </div>
+        <!-- end content -->
+
+
+
+        <!-- Footer Start -->
+        <footer class="footer" th:replace="~{system/fragment/index ::footer}">
+
+        </footer>
+        <!-- end Footer -->
+
+        </div>
+
+
+
+
+
+
+        <!-- Vendor js -->
+        <script src="assets\js\vendor.min.js"></script>
+
+        <!-- Responsive Table js -->
+        <script src="assets\libs\rwd-table\rwd-table.min.js"></script>
+
+        <!-- Init js -->
+        <script src="assets\js\pages\responsive-table.init.js"></script>
+
+        <!-- App js -->
+        <script src="assets\js\app.min.js"></script>
+
+    </body>
+
+</html>

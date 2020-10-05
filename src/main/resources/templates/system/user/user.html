@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en"
+xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+  <link href="img/logo/logo.png" rel="icon">
+  <title>RuangAdmin - Simple Tables</title>
+  <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+  <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+  <link href="css/ruang-admin.min.css" rel="stylesheet">
+</head>
+
+<body id="page-top">
+  <div id="wrapper">
+    <!-- Sidebar -->
+    <ul class="navbar-nav sidebar sidebar-light accordion" id="accordionSidebar"
+    th:replace = "~{system/index/index ::ul_nav}">
+      
+    </ul>
+    <!-- Sidebar -->
+    <div id="content-wrapper" class="d-flex flex-column">
+      <div id="content">
+        <!-- TopBar -->
+        <nav class="navbar navbar-expand navbar-light bg-navbar topbar mb-4 static-top"
+        th:replace = "~{system/index/index ::nav_header}">
+          
+        </nav>
+        <!-- Topbar -->
+        <!-- Container Fluid-->
+        <div class="container-fluid" id="container-wrapper">
+          <div class="d-sm-flex align-items-center justify-content-between mb-4">
+            <h1 class="h3 mb-0 text-gray-800">System user</h1>
+            <ol class="breadcrumb">
+              <li class="breadcrumb-item"><a href="/admin">Home</a></li>
+              <li class="breadcrumb-item">user</li>
+            </ol>
+          </div>
+
+          <div class="row">
+            <div class="col-lg-12 mb-4">
+              <!-- Simple Tables -->
+              <div class="card">
+                <div class="table-responsive">
+                  <table class="table align-items-center table-flush" id="user_table">
+                    <thead class="thead-light">
+                      <tr>
+                        <th>ID</th>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Actions</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      
+                    </tbody>
+                  </table>
+                </div>
+                <div class="card-footer"></div>
+              </div>
+            </div>
+          </div>
+          <!--Row-->
+        </div>
+        <!---Container Fluid-->
+      </div>
+      <!-- Footer -->
+      <footer class="sticky-footer bg-white" th:replace = "~{system/index/index ::footer}">
+      </footer>
+      <!-- Footer -->
+    </div>
+  </div>
+
+  <!-- Scroll to top -->
+  <a class="scroll-to-top rounded" href="#page-top">
+    <i class="fas fa-angle-up"></i>
+  </a>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script type="text/javascript">
+$(document).ready(function(){
+    $.ajax({
+        url: "/user/user",
+        dataType: 'json',
+        type: 'get',
+        cache:false,
+        success: function(data){
+            /*console.log(data);*/
+            var event_data = '';
+            $.each(data,function(index, value){
+                /*console.log(value);*/
+                event_data += '<tr>';
+                event_data += '<td>'+value.id+'</td>';
+                event_data += '<td>'+value.name+'</td>';
+                event_data += '<td>'+value.email+'</td>';
+                event_data += '<td>'+'<a href=""class="btn btn-sm btn-primary" name="${value.id}" id="delete">'
+                					+"Delete"+'</a>'+'</td>';
+                event_data += '</tr>';
+            });
+            $("#user_table").append(event_data);
+        },
+        error: function(d){
+            /*console.log("error");*/
+            alert("404. Please wait until the File is Loaded.");
+        }
+    });
+});
+
+$(document).on('click', '#delete', function(){
+	var id = $(this).attr('name');
+	console.log(id);
+	$.ajax({
+		url: '/user/delete',
+		type: 'get',
+		data: {
+			id: id
+		},
+		success: function(data){			
+		}
+	});
+})
+</script>
+
+  <script src="vendor/jquery/jquery.min.js"></script>
+  <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+  <script src="js/ruang-admin.min.js"></script>
+
+</body>
+
+</html>

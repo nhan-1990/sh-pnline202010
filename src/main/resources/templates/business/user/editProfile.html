@@ -1,0 +1,117 @@
+﻿<!DOCTYPE html>
+<html lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+
+    <head>
+        <meta charset="utf-8"/>
+        <title>Onetech</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <meta content="Responsive bootstrap 4 admin template" name="description"/>
+        <meta content="Coderthemes" name="author"/>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+        <!-- App favicon -->
+        <link rel="shortcut icon" href="business/assets\images\favicon.ico"/>
+
+        <!-- App css -->
+        <link href="business/assets\css\bootstrap.min.css" rel="stylesheet" type="text/css" id="bootstrap-stylesheet"/>
+        <link href="business/assets\css\icons.min.css" rel="stylesheet" type="text/css"/>
+        <link href="business/assets\css\app.min.css" rel="stylesheet" type="text/css" id="app-stylesheet"/>
+
+        <style type="text/css">
+            span {
+                color: red;
+            }
+        </style>
+
+    </head>
+
+    <body class="authentication-page">
+
+        <div class="account-pages my-5">
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-md-8 col-lg-6 col-xl-5">
+                        <div class="card mt-4">
+                            <div class="card-header text-center p-4 bg-primary">
+                                <h4 class="text-white mb-0 mt-0">Onetech</h4>
+                                <h5 class="text-white font-13 mb-0">Edit profile</h5>
+                            </div>
+                            <div class="card-body">
+                                <form action="#" th:action="@{/editprofiles}" th:object="${register}"  method="post" class="p-2">
+
+
+                                    <span th:if="${#fields.hasErrors('passwords')}" th:errors="*{passwords}"></span>
+                                    <input class="form-control" type="text"  th:field="*{id}" hidden="" >
+                                        <div class="form-group mb-3">
+                                            <label for="emailaddress">Email :</label>
+                                            <input class="form-control" type="email" id="emailaddress" th:field="*{email}"  >
+                                                <span th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></span>
+                                        </div>
+
+                                        <div class="form-group mb-3">
+                                            <label for="username">User name :</label>
+                                            <input class="form-control" type="text" id="username" th:field="*{name}"  >
+                                                <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></span>
+                                        </div>
+                                        <div class="form-group mb-3">
+                                            <label for="username">Address :</label>
+                                            <input class="form-control" type="text" id="address" th:field="*{address}"  >
+                                                <span th:if="${#fields.hasErrors('address')}" th:errors="*{address}"></span>
+                                        </div>
+                                        <div class="form-group mb-3">
+                                            <label for="username">Phone :</label>
+                                            <input class="form-control" type="text" id="phone" th:field="*{phone}"  >
+                                                <span th:if="${#fields.hasErrors('phone')}" th:errors="*{phone}"></span>
+                                        </div>
+
+                                        <div class="form-group mb-3">
+                                            <label for="password">Password :</label>
+                                            <input class="form-control" type="password" id="password" th:field="*{password}" >
+                                                <span th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></span>
+                                        </div>
+                                        <div class="form-group mb-3">
+                                            <label for="password">Confirm password :</label>
+                                            <input class="form-control" type="password" id="password" th:field="*{cfpassword}" >
+                                                <span th:if="${#fields.hasErrors('cfpassword')}" th:errors="*{cfpassword}"></span>
+                                        </div>
+
+
+
+                                        <div class="form-group text-right mt-4 mb-4">
+                                            <div class="col-12">
+                                                <button class="btn btn-md btn-primary waves-effect waves-light" type="submit">Submit</button>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group row mb-0">
+                                            <div class="col-sm-12 text-center">
+                                                <a href="pages-login.html">Already have account?</a>
+                                            </div>
+                                        </div>
+                                </form>
+
+                            </div>
+                            <!-- end card-body -->
+                        </div>
+                        <!-- end card -->
+
+                        <!-- end row -->
+
+                    </div>
+                    <!-- end col -->
+                </div>
+                <!-- end row -->
+
+            </div>
+        </div>
+
+        <!-- Vendor js -->
+        <script src="business/assets\js\vendor.min.js"></script>
+
+        <!-- App js -->
+        <script src="business/assets\js\app.min.js"></script>
+
+    </body>
+
+</html>
