@@ -152,12 +152,14 @@ public class UserController {
 
         User user = (User) session.getAttribute("user");
         model.addAttribute("user", user);
-        CartInfo myCart = Utils.getCartInSession(session);
-        model.addAttribute("cartForm", myCart);
+        CartInfo cartInfo = Utils.getCartInSession(session);
+        model.addAttribute("cartInfo", cartInfo);
 
         if (user.getOrder() != null) {
             List<OrderInfo> orderInfoList = orderServiceImpl.getAllOrderInfo(user.getUserId());
             model.addAttribute("orderDetail", orderInfoList);
+            
+            //System.out.println("rom: " + orderInfoList.get(0).getRom());
             return "business/user/history";
 
         } else {
@@ -172,8 +174,8 @@ public class UserController {
 
         User user = (User) session.getAttribute("user");
         model.addAttribute("user", user);
-        CartInfo myCart = Utils.getCartInSession(session);
-        model.addAttribute("cartForm", myCart);
+        CartInfo cartInfo = Utils.getCartInSession(session);
+        model.addAttribute("cartInfo", cartInfo);
 
         List<OrderDetailInfo> orderDetailInfos = orderServiceImpl.orderDetailInfos(orderid);
         model.addAttribute("orderDetailInfos", orderDetailInfos);

@@ -98,8 +98,8 @@ public class ProductDetailController {
         }
         model.addAttribute("relatedProduct", relative1);
         
-        CartInfo myCart = Utils.getCartInSession(session);
-        model.addAttribute("cartForm", myCart);
+        CartInfo cartInfo = Utils.getCartInSession(session);
+        model.addAttribute("cartInfo", cartInfo);
         
         return "business/product/productDetail";
     }

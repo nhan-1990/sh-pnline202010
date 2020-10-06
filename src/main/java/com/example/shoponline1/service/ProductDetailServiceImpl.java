@@ -32,6 +32,7 @@ public class ProductDetailServiceImpl implements IProductDetailService {
         productDto.setProductId(prdDetail.getProduct().getProductId());
         productDto.setProductDetailId(prdDetail.getProductDetailId());
         productDto.setConfiguratorId(prdDetail.getConfigurator().getConfiguratorId());
+        productDto.setSold(prdDetail.getSold());
         productDto.setProductName(prdDetail.getProduct().getProductName());
         productDto.setTrademarkName(prdDetail.getProduct().getTrademark().getTrademarkName());
         productDto.setRom(prdDetail.getConfigurator().getRom());
@@ -77,7 +78,9 @@ public class ProductDetailServiceImpl implements IProductDetailService {
     @Override
     public ProductDto findProductDtoById(int id) {
         
-        ProductDto productDto = iProductDtoDao.findById(id).get(id);
+        ProductDetail productDetails = iProductDetailDao.findById(id).get();
+        ProductDto productDto = new ProductDto();
+        this.getProductDto(productDto, productDetails);
         
         return productDto;
     }
@@ -97,15 +100,17 @@ public class ProductDetailServiceImpl implements IProductDetailService {
         
         return productPage;
     }
-    
+        
     @Override
-    public Page<ProductDto> bestSold(int page, int size) {
-        
-        Sort sortable = Sort.by("sold").descending();
-        Page<ProductDto> productPage = iProductDtoDao.findAllDtoPage(PageRequest.of(page - 1, size, sortable));
-        //Page<ProductDto> productPage = iProductDtoDao.bestSell(PageRequest.of(page - 1, size, sortable));
-        
-        return productPage;
+    public List<ProductDto> bestSell(){
+        List<ProductDetail> productDetails = iProductDetailDao.findBestSeller();
+        List<ProductDto> productDtos = new ArrayList<>();
+        for (ProductDetail productDetail : productDetails) {
+            ProductDto productDto = new ProductDto();
+            this.getProductDto(productDto, productDetail);
+            productDtos.add(productDto);
+        }
+        return productDtos;
     }
 
     @Override

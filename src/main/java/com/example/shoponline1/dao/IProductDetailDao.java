@@ -13,4 +13,9 @@ public interface IProductDetailDao extends JpaRepository<ProductDetail, Integer>
 /*    @Query("select new com.example.shoponline1.entity.ProductDetail(pd.productDetailId, pd.price, pd.amount, pd.color.colorId, pd.configurator.configuratorId, pd.images.imageId, pd.product.productId) " +
             "from ProductDetail pd where pd.product.productName = ?1")
     List<ProductDetail> findByName(String productName);*/
+    
+    @Query(value = "select * from product_detail order by sold desc limit 4", nativeQuery = true)
+    public List<ProductDetail> findBestSeller();
+    
+    
 }

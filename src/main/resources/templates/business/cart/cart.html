@@ -43,18 +43,18 @@
                         <div class="cart_items">
                             <ul class="cart_list">
                                 <li class="cart_item clearfix">
-                                    <th:block th:if="${cartForm == null || cartForm.cartLines == null || cartForm.cartLines.empty}">
+                                    <th:block th:if="${cartInfo == null || cartInfo.cartLines == null || cartInfo.cartLines.empty}">
                                         <h2>There is no items in Cart</h2>
                                         <a th:href="@{/}">Show Product List</a>
                                     </th:block>
 
-                                    <th:block th:if="${cartForm != null && cartForm.cartLines != null && !cartForm.cartLines.empty}">
+                                    <th:block th:if="${cartInfo != null && cartInfo.cartLines != null && !cartInfo.cartLines.empty}">
                                         <h3>
                                             Giỏ hàng
-                                            <span th:utext="${cartForm.quantityTotal}"></span>
+                                            <span th:utext="${cartInfo.quantityTotal}"></span>
                                             sản phẩm
                                         </h3><br/><br/>
-                                        <div th:each="cartLineInfo, varStatus : ${cartForm.cartLines}">
+                                        <div th:each="cartLineInfo, varStatus : ${cartInfo.cartLines}">
                                             <div class="d-flex flex-row flex-nowrap">                                                  
                                                 <div class="cart_item_image cart_info_col">                                                                                                    
                                                     <img th:src ="@{|/productImg?code=${cartLineInfo.productCartDto.productDetailId}|}" 
@@ -114,14 +114,14 @@
                         <div class="order_total">
                             <div class="order_total_content">                                        
                                 <div class="order_total_title">Order Total:</div>
-                                <div th:if="${cartForm.amountTotal == null || cartForm.amountTotal == 0}">
+                                <div th:if="${cartInfo.amountTotal == null || cartInfo.amountTotal == 0}">
                                     <div class="order_total_amount" >
-                                        <span th:text="${#numbers.formatDecimal(cartForm.amountTotal,0,'POINT',0,'COMMA')} + ' đ'"/>
+                                        <span th:text="${#numbers.formatDecimal(cartInfo.amountTotal,0,'POINT',0,'COMMA')} + ' đ'"/>
                                     </div>  
                                 </div>
-                                <div th:if="${cartForm.amountTotal != null && cartForm.amountTotal != 0}">
+                                <div th:if="${cartInfo.amountTotal != null && cartInfo.amountTotal != 0}">
                                     <div class="order_total_amount" >
-                                        <span th:text="${#numbers.formatDecimal(cartForm.amountTotal,3,'POINT',0,'COMMA')} + ' đ'"/>
+                                        <span th:text="${#numbers.formatDecimal(cartInfo.amountTotal,3,'POINT',0,'COMMA')} + ' đ'"/>
                                     </div>  
                                 </div>
                             </div>                            

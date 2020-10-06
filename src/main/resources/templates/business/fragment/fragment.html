@@ -69,15 +69,15 @@
                                         <div class="cart_container d-flex flex-row align-items-center justify-content-end">
                                             <div class="cart_icon">
                                                 <img src="/business/images/cart.png" alt=""/>
-                                                <div class="cart_count" th:utext="${cartForm.quantityTotal}"></div>
+                                                <div class="cart_count" th:utext="${cartInfo.quantityTotal}"></div>
                                             </div>
                                             <div class="cart_content">
                                                 <div class="cart_text"><a th:href="@{/cart}">Cart</a></div>
-                                                <th:block th:if="${cartForm.amountTotal == null || cartForm.amountTotal == 0}">
-                                                    <div class="cart_price" th:utext="${#numbers.formatDecimal(cartForm.amountTotal,0,'POINT',0,'COMMA')}"></div>
+                                                <th:block th:if="${cartInfo.amountTotal == null || cartInfo.amountTotal == 0}">
+                                                    <div class="cart_price" th:utext="${#numbers.formatDecimal(cartInfo.amountTotal,0,'POINT',0,'COMMA')}"></div>
                                                 </th:block>
-                                                <th:block th:if="${cartForm.amountTotal != null && cartForm.amountTotal >=1000}">
-                                                    <div class="cart_price" th:utext="${#numbers.formatDecimal(cartForm.amountTotal,3,'POINT',0,'COMMA')}"></div>
+                                                <th:block th:if="${cartInfo.amountTotal != null && cartInfo.amountTotal >=1000}">
+                                                    <div class="cart_price" th:utext="${#numbers.formatDecimal(cartInfo.amountTotal,3,'POINT',0,'COMMA')}"></div>
                                                 </th:block>
                                             </div>
                                         </div>

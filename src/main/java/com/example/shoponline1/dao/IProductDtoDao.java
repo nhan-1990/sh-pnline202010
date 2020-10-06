@@ -113,7 +113,8 @@ public interface IProductDtoDao extends JpaRepository<ProductDetail, Integer> {
             + "((pd.price * pd.product.promotion.discountvalue) / 100) as reducedPrice, "
             + "pd.images.image1, "
             + "pd.images.image2, "
-            + "pd.images.image3) from ProductDetail pd "
+            + "pd.images.image3) from ProductDetail pd, "
+            + "order by pd.sold, "
             + "limit 4", nativeQuery = true)
-    Page<ProductDto> bestSell(Pageable pageable);*/
+    List<ProductDto> bestSell();*/
 }

@@ -73,19 +73,6 @@ public class CartController {
 
     }
 
-    /*@RequestMapping("/")
-    public String listProductHandler(Model model, //
-            @RequestParam(value = "name", defaultValue = "") String likeName,
-            @RequestParam(value = "page", defaultValue = "1") int page) {
-        final int maxResult = 5;
-        final int maxNavigationPage = 10;
-
-        PaginationResult<ProductInfo> result = productDAO.queryProducts(page, //
-                maxResult, maxNavigationPage, likeName);
-
-        model.addAttribute("paginationProducts", result);
-        return "index";
-    }**/
     @RequestMapping({"/buyProduct"})
     public String listProductHandler(HttpSession session, Model model,
             @RequestParam(value = "code", defaultValue = "") int code,
@@ -97,11 +84,6 @@ public class CartController {
             CartInfo cartInfo = Utils.getCartInSession(session);
             ProductCartDto productCartDto = new ProductCartDto(productDetail);
             cartInfo.addProduct(productCartDto, quantity);
-            
-            System.out.println("code: " + code);
-            System.out.println("productDetail: " + productDetail.getProductDetailId());
-            System.out.println("productCart: " + productCartDto.getProductDetailId());
-            System.out.println("cartInfo: " + cartInfo.getCartLines().get(0).getProductCartDto().getProductDetailId());
         }
 
         return "redirect:/cart";
@@ -111,8 +93,8 @@ public class CartController {
     @RequestMapping(value = {"/cart"}, method = RequestMethod.GET)
     public String shoppingCart(Model model, HttpSession session) {
 
-        CartInfo myCart = Utils.getCartInSession(session);
-        model.addAttribute("cartForm", myCart);
+        CartInfo cartInfo = Utils.getCartInSession(session);
+        model.addAttribute("cartInfo", cartInfo);
 
         if (session.getAttribute("user") != null) {
             User user = (User) session.getAttribute("user");
@@ -144,7 +126,6 @@ public class CartController {
     // POST: Giảm số lượng cho các sản phẩm đã mua.
     @RequestMapping(value = {"/decreaseProduct"}, method = RequestMethod.GET)
     public String shoppingCartDecreaseQty(HttpSession session, Model model,
-            @ModelAttribute("cartForm") CartInfo cartForm,
             @RequestParam("code") int code) {
 
         ProductDetail productDetail = null;
@@ -169,7 +150,6 @@ public class CartController {
     // POST: Tăng số lượng cho các sản phẩm đã mua.
     @RequestMapping(value = {"/increaseProduct"}, method = RequestMethod.GET)
     public String shoppingCartIncreaseQty(HttpSession session, Model model,
-            @ModelAttribute("cartForm") CartInfo cartForm,
             @RequestParam("code") int code) {
 
         ProductDetail productDetail = null;

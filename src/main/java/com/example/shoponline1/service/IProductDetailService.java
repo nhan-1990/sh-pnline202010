@@ -1,6 +1,7 @@
 package com.example.shoponline1.service;
 
 import com.example.shoponline1.dto.ProductDto;
+import com.example.shoponline1.entity.ProductDetail;
 import java.util.List;
 
 import org.springframework.data.domain.Page;
@@ -15,7 +16,7 @@ public interface IProductDetailService {
     
     Page<ProductDto> findPaginated(int page, int size, String sort);    
     
-    Page<ProductDto> bestSold(int page, int size);
+    List<ProductDto> bestSell();
     
     Page<ProductDto> filter(int page, int size, String sort, String brand1Name, String brand2Name, double minPrice, double maxPrice);
 

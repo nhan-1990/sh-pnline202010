@@ -5,8 +5,6 @@
  */
 package com.example.shoponline1.dto;
 
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  *

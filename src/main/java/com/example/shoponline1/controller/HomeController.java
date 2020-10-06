@@ -41,10 +41,9 @@ public class HomeController {
             @RequestParam(name = "sort", defaultValue = "productDetailId: DESC") String sort) {
 
         Page<ProductDto> productPage = iProductDetailService.findPaginated(page, size, sort);
-        model.addAttribute("productPage", productPage);
+        model.addAttribute("productPage", productPage);        
         
-        //Page<ProductDto> bestSold = iProductDetailService.bestSold(page, 4);
-        Page<ProductDto> bestSold = iProductDetailService.bestSold(page, 8);
+        List<ProductDto> bestSold = iProductDetailService.bestSell();
         model.addAttribute("bestSold", bestSold);
 
         int totalPage = productPage.getTotalPages();
@@ -60,8 +59,8 @@ public class HomeController {
             model.addAttribute("user", user);
         }
 
-        CartInfo myCart = Utils.getCartInSession(session);
-        model.addAttribute("cartForm", myCart);
+        CartInfo cartInfo = Utils.getCartInSession(session);
+        model.addAttribute("cartInfo", cartInfo);
         List<Trademark> trademark = iTrademarkDao.findAll();
         model.addAttribute("trademark", trademark);
 
@@ -146,7 +145,7 @@ public class HomeController {
         Page<ProductDto> productPage = iProductDetailService.filter(page, size, sort, brandName1, brandName2, minPrice, maxPrice);
         model.addAttribute("productPage", productPage);
         
-        Page<ProductDto> bestSold = iProductDetailService.bestSold(1, 4);
+        List<ProductDto> bestSold = iProductDetailService.bestSell();
         model.addAttribute("bestSold", bestSold);
 
         int totalPage = productPage.getTotalPages();
