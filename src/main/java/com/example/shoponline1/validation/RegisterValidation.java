@@ -1,7 +1,7 @@
 package com.example.shoponline1.validation;
 
 import com.example.shoponline1.dao.IUserDao;
-import com.example.shoponline1.dto.Register;
+import com.example.shoponline1.dto.RegisterForm;
 import com.example.shoponline1.entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -23,7 +23,7 @@ public class RegisterValidation implements Validator {
 
     @Override
     public void validate(Object o, Errors errors) {
-        Register user = (Register) o;
+        RegisterForm user = (RegisterForm) o;
         if (user.getEmail() != null && user.getName() != null && user.getAddress() != null
                 && user.getPhone() != null && user.getPassword() != null && user.getCfpassword() != null) {
             ValidationUtils.rejectIfEmptyOrWhitespace(errors, "email", "NotEmpty", "NotEmpty");

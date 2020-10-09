@@ -552,8 +552,9 @@
                                                     <span th:text="${#numbers.formatDecimal(product.priceBefore, 0, 'COMMA', 0, 'POINT')}"></span><span>đ</span>
                                                 </div>
                                                 <div class="discount"> 
-                                                    <label>Sold </label>
-                                                    <label th:text="${product.sold}"></label>
+                                                    <label>Sale off</label>
+                                                    <label  th:text="${#numbers.formatDecimal(product.reducedPrice, 0, 'COMMA', 0, 'POINT')}"></label>
+                                                    <label>đ</label>
                                                 </div>
                                                 <div class="card-footer">
                                                     <div class="btnbuy">

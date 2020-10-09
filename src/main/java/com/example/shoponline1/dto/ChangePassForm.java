@@ -6,11 +6,10 @@ import lombok.Data;
 
 @Data
 @Component
-public class EditProfile {
+public class ChangePassForm {
 	private int id;
 	private String email;
-	private String name;
-	private String address;
-	private Long phone;
-	private String emails;
+	private String oldPass;
+	private String newPass;
+	private String comfirmPass;
 }
