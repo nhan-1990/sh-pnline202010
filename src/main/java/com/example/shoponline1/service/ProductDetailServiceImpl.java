@@ -5,13 +5,13 @@ import com.example.shoponline1.dao.IProductDetailDao;
 import com.example.shoponline1.dao.IProductDtoDao;
 import com.example.shoponline1.dto.ProductDto;
 import com.example.shoponline1.entity.ProductDetail;
+import java.sql.Array;
 import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
@@ -88,8 +88,16 @@ public class ProductDetailServiceImpl implements IProductDetailService {
     @Override
     public List<ProductDto> findListProductById(int id) {
         
-        List<ProductDto> prdDto = iProductDtoDao.findById(id);
-        return prdDto;
+        List<ProductDetail> productDetail = iProductDetailDao.findAll();        
+        List<ProductDto> productDtos = new ArrayList<>();
+        for (ProductDetail prDe : productDetail) {
+            if(prDe.getProduct().getProductId() == id){
+                ProductDto productDto = new ProductDto();
+                this.getProductDto(productDto, prDe);
+                productDtos.add(productDto);
+            }
+        }
+        return productDtos;
     }
 
     @Override
@@ -133,6 +141,14 @@ public class ProductDetailServiceImpl implements IProductDetailService {
         
         Sort sortable = this.getSort(sort);
         Page<ProductDto> productPage = iProductDtoDao.findByName(PageRequest.of(page - 1, size, sortable), name1, name2);
+        
+        return productPage;
+    }
+    
+    @Override
+    public List<ProductDto> findRelated(String name1, String name2, int id){        
+        
+        List<ProductDto> productPage = iProductDtoDao.findRelated(name1, name2, id);
         
         return productPage;
     }

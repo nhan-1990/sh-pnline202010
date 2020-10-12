@@ -21,5 +21,7 @@ public interface IProductDetailService {
     Page<ProductDto> filter(int page, int size, String sort, String brand1Name, String brand2Name, double minPrice, double maxPrice);
 
     Page<ProductDto> findByProductName(int page, int size, String sort, String name1, String name2);
+    
+    List<ProductDto> findRelated(String name1, String name2, int id);
 
 }

@@ -102,6 +102,23 @@ public interface IProductDtoDao extends JpaRepository<ProductDetail, Integer> {
     Page<ProductDto> filterbyPrice(Pageable pageable,
             @Param("minPrice") double minPrice, @Param("maxPrice") double maxPrice);
     
+    @Query("select new com.example.shoponline1.dto.ProductDto(pd.product.productId, "
+            + "pd.productDetailId, pd.configurator.configuratorId, pd.amount, pd.sold, "
+            + "pd.product.productName, "
+            + "pd.configurator.rom, "
+            + "pd.color.colorName, "
+            + "pd.product.trademark.trademarkName, "
+            + "pd.price as priceBefore, "
+            + "(pd.price - ((pd.price * pd.product.promotion.discountvalue) / 100)) as priceAfter, "
+            + "((pd.price * pd.product.promotion.discountvalue) / 100) as reducedPrice, "
+            + "pd.images.image1, "
+            + "pd.images.image2, "
+            + "pd.images.image3) from ProductDetail pd where (pd.product.productName like %:name1% or "
+            + "pd.configurator.rom like %:name2%) "
+            + "and pd.productDetailId <> :id")
+    List<ProductDto> findRelated(@Param("name1") String name1, 
+            @Param("name2") String name2, @Param("id") int id);
+    
     /*@Query(value ="select new com.example.shoponline1.dto.ProductDto(pd.product.productId, "
             + "pd.productDetailId, pd.configurator.configuratorId, pd.amount, pd.sold, "
             + "pd.product.productName, "

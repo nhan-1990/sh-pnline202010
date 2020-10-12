@@ -25,7 +25,6 @@ import java.util.stream.Collectors;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -36,7 +35,7 @@ public class ProductDetailController {
 
     @Autowired
     private IProductService iProductService;
-    
+
     @Autowired
     private IProductDetailDao iProductDetailDao;
 
@@ -56,17 +55,17 @@ public class ProductDetailController {
 
     @SuppressWarnings("unlikely-arg-type")
     @RequestMapping("/productdetail")
-    public String productDetail(Model model, HttpSession session,            
+    public String productDetail(Model model, HttpSession session,
             @RequestParam("id") int id) {
 
         if (session.getAttribute("user") != null) {
             User user = (User) session.getAttribute("user");
             model.addAttribute("user", user);
         }
-        
+
         ProductDto productDto = iProductDetailService.findProductDtoById(id);
         model.addAttribute("productDto", productDto);
-        
+
         List<ReviewDto> review = iReviewDtoService.findAllReviewDto(productDto.getProductId());
         model.addAttribute("review", review);
 
@@ -77,35 +76,29 @@ public class ProductDetailController {
                 .collect(Collectors.toList());
         model.addAttribute("pr", pr);
 
-        List<ColorDto> color = new ArrayList<ColorDto>();
+        List<ColorDto> color = new ArrayList<>();
         for (ProductDto productDto2 : listProductDto) {
-            if (productDto2.getRom().equals(productDto.getRom())) {
-                ColorDto cl = new ColorDto();
-                cl.setId(productDto2.getProductDetailId());
-                cl.setColor(productDto2.getColor());
-                color.add(cl);
-                model.addAttribute("color", color);
-            }
+            ColorDto cl = new ColorDto();
+            cl.setId(productDto2.getProductDetailId());
+            cl.setColor(productDto2.getColor());
+            color.add(cl);
         }
+        model.addAttribute("color", color);
+
         ProductDetail prDt = iProductDetailDao.findById(id).get();
         model.addAttribute("prDt", prDt);
-        
-        Page<ProductDto> relatedProduct = iProductDetailService.findByProductName(1, 6, "productDetailId: DESC", productDto.getProductName(), productDto.getRom());
-        List<ProductDto> relative = relatedProduct.toList();
-        List<ProductDto> relative1 = new ArrayList<>();
-        for (int i=1;i<relative.size();i++) {
-            relative1.add(0, relative.get(i));
-        }
-        model.addAttribute("relatedProduct", relative1);
-        
+
+        List<ProductDto> relatedProduct = iProductDetailService.findRelated(productDto.getProductName(), productDto.getRom(), id);
+        model.addAttribute("relatedProduct", relatedProduct);
+
         CartInfo cartInfo = Utils.getCartInSession(session);
         model.addAttribute("cartInfo", cartInfo);
-        
+
         return "business/product/productDetail";
     }
 
     @RequestMapping("/review")
-    public String review(Model model, HttpSession session, 
+    public String review(Model model, HttpSession session,
             @RequestParam("prddtid") int prdDetailId,
             @RequestParam("prdid") int prdId,
             @RequestParam("content") String content) {

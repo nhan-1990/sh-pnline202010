@@ -98,8 +98,8 @@ public class HomeController {
             User user = (User) session.getAttribute("user");
             model.addAttribute("user", user);
         }
-        CartInfo myCart = Utils.getCartInSession(session);
-        model.addAttribute("cartForm", myCart);
+        CartInfo cartInfo = Utils.getCartInSession(session);
+        model.addAttribute("cartInfo", cartInfo);
         List<Trademark> trademark = iTrademarkDao.findAll();
         model.addAttribute("trademark", trademark);
 
@@ -160,8 +160,8 @@ public class HomeController {
             User user = (User) session.getAttribute("user");
             model.addAttribute("user", user);
         }
-        CartInfo myCart = Utils.getCartInSession(session);
-        model.addAttribute("cartForm", myCart);
+        CartInfo cartInfo = Utils.getCartInSession(session);
+        model.addAttribute("cartInfo", cartInfo);
         List<Trademark> trademark = iTrademarkDao.findAll();
         model.addAttribute("trademark", trademark);
 
